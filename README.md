@@ -18,6 +18,13 @@
 |---|---|
 | [docs/agent-intelligence-and-development-plan.md](docs/agent-intelligence-and-development-plan.md) | 智能硬件 OPC Agent 架构与开发路线图 |
 | [docs/codex-goal-prompt.md](docs/codex-goal-prompt.md) | 可直接复制给 Codex `/goal` 的输入 prompt 和完整任务书 |
+| [docs/strategy/okr.md](docs/strategy/okr.md) | Phase 0 OKR |
+| [docs/product/prd-v1.md](docs/product/prd-v1.md) | PRD v1 |
+| [docs/agents/role-registry.md](docs/agents/role-registry.md) | Agent 角色注册表 |
+| [docs/security/threat-model.md](docs/security/threat-model.md) | 威胁模型初稿 |
+| [docs/compliance/privacy-impact-assessment.md](docs/compliance/privacy-impact-assessment.md) | 隐私影响分析初稿 |
+| [docs/operations/dashboard-metrics.md](docs/operations/dashboard-metrics.md) | OPC 经营指标表 |
+| [docs/codex-goals/phase-1-poc-goal.md](docs/codex-goals/phase-1-poc-goal.md) | 下一阶段 POC `/goal` |
 | [docs/superpowers/specs/2026-06-07-opc-ai-hardware-agents-design.md](docs/superpowers/specs/2026-06-07-opc-ai-hardware-agents-design.md) | 当前阶段设计规格 |
 | [docs/superpowers/plans/2026-06-07-opc-ai-hardware-agents-development-plan.md](docs/superpowers/plans/2026-06-07-opc-ai-hardware-agents-development-plan.md) | 后续执行计划 |
 | [AGENTS.md](AGENTS.md) | Codex 在本仓库工作的长期规则 |
