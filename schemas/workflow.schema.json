@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents for Star Workflow",
+  "type": "object",
+  "required": [
+    "workflow_id",
+    "name",
+    "description",
+    "risk_default",
+    "trigger",
+    "agents",
+    "context_paths",
+    "output_paths",
+    "steps",
+    "guardrails"
+  ]
+}

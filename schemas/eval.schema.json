@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents for Star Eval Suite",
+  "type": "object",
+  "required": [
+    "eval_suite_id",
+    "name",
+    "description",
+    "version",
+    "gates",
+    "cases"
+  ]
+}

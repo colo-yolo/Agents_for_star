@@ -1,0 +1,19 @@
+approval_package:
+  task_id: TASK-EXAMPLE-002
+  requested_by: Sales Agent
+  reviewed_by:
+    - Marketing Agent
+    - Compliance Agent
+  risk_level: high
+  requested_action: external_send
+  evidence_paths:
+    - docs/go-to-market/icp-and-positioning.md
+    - docs/compliance/founder-approval-policy.md
+  impact:
+    product: 待验证
+    finance: 待验证
+    security: 待验证
+    compliance: 待验证
+    customer: 待验证
+  rollback_plan: 待验证
+  founder_decision: pending_founder_approval

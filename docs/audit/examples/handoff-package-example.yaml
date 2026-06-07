@@ -1,0 +1,26 @@
+task_id: TASK-EXAMPLE-001
+workflow_id: user_research_sprint
+from_agent: Product Manager Agent
+to_agent: Customer Success Agent
+risk_level: medium
+approval_state: reviewed
+goal: 整理用户研究输入并识别主场景证据缺口
+context_paths:
+  - docs/research/interview-record-template.md
+  - docs/research/pain-scorecard.md
+output_paths:
+  - docs/research/main-scenario-decision.md
+known_facts:
+  - 仓库已有用户研究模板
+unknowns:
+  - 真实访谈记录未采集
+forbidden_actions:
+  - payment
+  - contract_signing
+  - external_send
+  - privacy_policy_change
+  - security_exception
+  - mass_production_commitment
+review_questions:
+  - 是否存在客户承诺风险
+  - 是否需要创始人审批

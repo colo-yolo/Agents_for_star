@@ -48,6 +48,44 @@
 - 评估维度包括人工审批、trace、checkpoint、成本、维护复杂度和失败恢复。
 - 未完成评估前不绑定单一框架。
 
+## 运行时评估矩阵
+
+评分: 1 为弱, 3 为可用, 5 为强。分数是当前产品设计判断, 不是 benchmark。
+
+| 方案 | 创始人审批 | Trace 和审计 | Checkpoint | Workflow 配置 | 维护复杂度 | 依赖成本 | 当前适配度 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 纯 YAML + PowerShell 脚本 | 5 | 3 | 2 | 5 | 5 | 5 | 5 |
+| OpenAI Agents SDK | 4 | 5 | 3 | 3 | 3 | 待验证 | 4 |
+| LangGraph | 5 | 4 | 5 | 4 | 3 | 待验证 | 4 |
+| Microsoft Agent Framework | 5 | 5 | 5 | 4 | 2 | 待验证 | 3 |
+| CrewAI | 3 | 3 | 2 | 3 | 3 | 待验证 | 2 |
+| MetaGPT / ChatDev 风格 | 2 | 2 | 2 | 3 | 2 | 待验证 | 2 |
+
+## 矩阵结论
+
+当前阶段继续采用“纯 YAML + PowerShell 脚本”作为最小运行时:
+
+- 能直接读取 `workflows/*.yaml`。
+- 能生成主 Agent、审查 Agent、风险等级、审批状态和审计日志草案。
+- 能通过 `scripts/validate-schemas.ps1` 和 `scripts/run-evals.ps1` 做基础回放。
+- 不新增依赖, 适合一人公司维护。
+
+后续进入真实多 Agent 执行时, 优先比较 OpenAI Agents SDK 和 LangGraph:
+
+- 如果重点是 handoff、guardrail 和 tracing, 优先评估 OpenAI Agents SDK。
+- 如果重点是长任务状态、checkpoint 和 human-in-the-loop, 优先评估 LangGraph。
+- 如果进入企业级治理或复杂并发流程, 再评估 Microsoft Agent Framework。
+
+## 选型触发条件
+
+| 触发条件 | 动作 |
+|---|---|
+| workflow 数量超过 10 个 | 增加更严格 schema 或运行时评估 |
+| high risk 审批包每周超过 5 个 | 增加审批队列和审计索引 |
+| 需要恢复中断任务 | 评估 checkpoint 运行时 |
+| 需要真实模型调用和工具执行 | 评估 OpenAI Agents SDK 或 LangGraph |
+| 需要团队协作和 PR 门禁 | 强化 GitHub Actions CI |
+
 ## 创始人审批事项
 
 - 引入付费 API 或云资源。

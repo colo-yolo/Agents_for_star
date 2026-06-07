@@ -1,0 +1,81 @@
+workflow_id: model_eval_future
+name: 模型成本评估
+description: 比较模型策略、成本假设和敏感数据处理风险, 未验证价格必须标为待验证。
+risk_default: medium
+trigger:
+  source: manual
+  accepted_inputs:
+    - founder_goal
+    - model_notes
+    - github_doc
+agents:
+  primary: AI ML Agent
+  reviewers:
+    - Security Agent
+    - Finance Agent
+  archive: Knowledge Ops Agent
+context_paths:
+  - docs/evaluation/model-cost-quality-tracker.md
+  - docs/evaluation/agent-output-rubric.md
+  - docs/finance/cashflow-scenario-template.md
+  - docs/security/access-control-matrix.md
+output_paths:
+  - docs/evaluation/model-cost-quality-tracker.md
+  - docs/evaluation/task-replay-cases.md
+steps:
+  - id: collect_model_context
+    agent: AI ML Agent
+    action: read_model_strategy_and_cost_inputs
+    inputs:
+      - context_paths
+    outputs:
+      - handoff_input_package
+    approval_state: draft
+  - id: mark_cost_unknowns
+    agent: AI ML Agent
+    action: mark_unverified_model_prices_as_pending_verification
+    inputs:
+      - handoff_input_package
+    outputs:
+      - docs/evaluation/model-cost-quality-tracker.md
+    approval_state: draft
+  - id: review_sensitive_data
+    agent: Security Agent
+    action: review_sensitive_data_and_external_model_risk
+    inputs:
+      - docs/evaluation/model-cost-quality-tracker.md
+    outputs:
+      - security_review_notes
+    approval_state: reviewed
+  - id: review_budget
+    agent: Finance Agent
+    action: review_budget_and_cost_source_status
+    inputs:
+      - docs/evaluation/model-cost-quality-tracker.md
+      - docs/finance/cashflow-scenario-template.md
+    outputs:
+      - finance_review_notes
+    approval_state: reviewed
+  - id: archive_eval_plan
+    agent: Knowledge Ops Agent
+    action: record_cost_quality_evidence_and_next_goal
+    inputs:
+      - security_review_notes
+      - finance_review_notes
+    outputs:
+      - docs/evaluation/task-replay-cases.md
+    approval_state: archived
+guardrails:
+  forbidden_actions:
+    - payment
+    - contract_signing
+    - external_send
+    - privacy_policy_change
+    - security_exception
+    - mass_production_commitment
+  high_risk_policy: founder_approval_required
+  unknown_fact_policy: mark_as_uncollected_or_pending_verification
+evaluation:
+  eval_file: evals/agent-routing-evals.yaml
+  cases:
+    - model_cost_must_be_pending_verification

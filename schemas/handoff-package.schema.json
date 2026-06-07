@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents for Star Handoff Package",
+  "type": "object",
+  "required": [
+    "task_id",
+    "workflow_id",
+    "from_agent",
+    "to_agent",
+    "risk_level",
+    "approval_state",
+    "goal",
+    "context_paths",
+    "output_paths",
+    "known_facts",
+    "unknowns",
+    "forbidden_actions"
+  ]
+}

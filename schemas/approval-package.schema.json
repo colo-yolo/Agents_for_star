@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agents for Star Founder Approval Package",
+  "type": "object",
+  "required": [
+    "approval_package",
+    "task_id",
+    "requested_by",
+    "reviewed_by",
+    "risk_level",
+    "requested_action",
+    "evidence_paths",
+    "impact",
+    "rollback_plan",
+    "founder_decision"
+  ]
+}

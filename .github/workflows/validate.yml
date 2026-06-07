@@ -1,0 +1,31 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate-docs:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Git whitespace check
+        shell: pwsh
+        run: git diff --check
+
+      - name: Validate docs
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File scripts\validate-docs.ps1
+
+      - name: Validate schemas
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File scripts\validate-schemas.ps1
+
+      - name: Run eval replays
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File scripts\run-evals.ps1
