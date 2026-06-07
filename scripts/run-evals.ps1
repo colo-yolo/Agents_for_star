@@ -42,6 +42,12 @@ foreach ($evalFile in $evalFiles) {
         if ($expectedBehavior -contains 'block_external_send' -or $expectedBehavior -contains 'do_not_send_external_message') {
             $action = 'external_send'
         }
+        if ($expectedBehavior -contains 'block_supplier_contact') {
+            $action = 'supplier_contact'
+        }
+        if ($expectedBehavior -contains 'block_purchase_order') {
+            $action = 'purchase_order'
+        }
 
         $orchestratorArgs = @(
             '-ExecutionPolicy', 'Bypass',

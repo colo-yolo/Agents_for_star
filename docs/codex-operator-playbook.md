@@ -77,6 +77,24 @@ powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
 | 用户研究 | `workflows/user-research-sprint.yaml` | Product Manager Agent | Customer Success Agent、Compliance Agent |
 | POC Orchestrator | `workflows/phase-1-orchestrator-poc.yaml` | Backend Agent | Security Agent、QA Reliability Agent |
 | 模型成本评估 | `workflows/model-cost-eval.yaml` | AI ML Agent | Security Agent、Finance Agent |
+| 硬件架构评审 | `workflows/hardware-principal-review.yaml` | Hardware Architect Agent | Supply Chain Agent、Security Agent、Firmware Agent、QA Reliability Agent、Finance Agent |
+
+### Principal 硬件架构评审
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
+  -Workflow workflows/hardware-principal-review.yaml `
+  -TaskId TASK-HW-REVIEW-001 `
+  -Goal "Principal 硬件架构评审"
+```
+
+硬件任务必须读取:
+
+- `docs/agents/roles/hardware-architect-agent.md`
+- `docs/hardware/hardware-principal-playbook.md`
+- `docs/hardware/hardware-design-review-checklist.md`
+- `docs/hardware/hardware-bringup-evt-plan.md`
+- `docs/hardware/hardware-fmea-template.md`
 
 ## 停止条件
 

@@ -1,0 +1,132 @@
+workflow_id: hardware_principal_review
+name: Principal 硬件架构评审
+description: 按 Principal Hardware Engineer 标准评审智能硬件架构、BOM、接口、功耗、热、DFM、DFT、bring-up 和 FMEA 风险。
+risk_default: high
+trigger:
+  source: manual
+  accepted_inputs:
+    - founder_goal
+    - hardware_doc
+    - bom_change
+    - prototype_issue
+agents:
+  primary: Hardware Architect Agent
+  reviewers:
+    - Supply Chain Agent
+    - Security Agent
+    - Firmware Agent
+    - QA Reliability Agent
+    - Finance Agent
+  archive: Knowledge Ops Agent
+context_paths:
+  - docs/hardware/bom-template.md
+  - docs/hardware/hardware-principal-playbook.md
+  - docs/hardware/hardware-design-review-checklist.md
+  - docs/hardware/hardware-bringup-evt-plan.md
+  - docs/hardware/hardware-fmea-template.md
+  - docs/hardware/hardware-interface-control-document.md
+  - docs/references/hardware-engineering-patterns.md
+  - docs/security/access-control-matrix.md
+  - docs/compliance/founder-approval-policy.md
+output_paths:
+  - docs/hardware/bom-template.md
+  - docs/hardware/hardware-design-review-checklist.md
+  - docs/hardware/hardware-bringup-evt-plan.md
+  - docs/hardware/hardware-fmea-template.md
+  - docs/hardware/hardware-interface-control-document.md
+  - docs/strategy/risk-register.md
+steps:
+  - id: freeze_requirements
+    agent: Hardware Architect Agent
+    action: define_hardware_requirements_constraints_and_stage_gate
+    inputs:
+      - context_paths
+    outputs:
+      - hardware_requirements_matrix
+    approval_state: draft
+  - id: architecture_review
+    agent: Hardware Architect Agent
+    action: review_system_blocks_power_thermal_interfaces_and_bom_risk
+    inputs:
+      - hardware_requirements_matrix
+      - docs/hardware/bom-template.md
+    outputs:
+      - docs/hardware/hardware-design-review-checklist.md
+      - docs/hardware/hardware-interface-control-document.md
+    approval_state: draft
+  - id: fmea_update
+    agent: Hardware Architect Agent
+    action: update_hardware_fmea_and_stage_blockers
+    inputs:
+      - docs/hardware/hardware-design-review-checklist.md
+    outputs:
+      - docs/hardware/hardware-fmea-template.md
+      - docs/strategy/risk-register.md
+    approval_state: draft
+  - id: supply_chain_review
+    agent: Supply Chain Agent
+    action: review_bom_lifecycle_alternates_moq_and_supplier_risk_without_contacting_suppliers
+    inputs:
+      - docs/hardware/bom-template.md
+    outputs:
+      - supply_chain_review_notes
+    approval_state: reviewed
+  - id: security_review
+    agent: Security Agent
+    action: review_camera_microphone_wireless_debug_and_privacy_indicators
+    inputs:
+      - docs/hardware/hardware-interface-control-document.md
+      - docs/security/access-control-matrix.md
+    outputs:
+      - security_review_notes
+    approval_state: reviewed
+  - id: firmware_qa_review
+    agent: QA Reliability Agent
+    action: review_bringup_test_points_logs_and_evt_blockers
+    inputs:
+      - docs/hardware/hardware-bringup-evt-plan.md
+      - docs/hardware/hardware-interface-control-document.md
+    outputs:
+      - qa_review_notes
+    approval_state: reviewed
+  - id: finance_review
+    agent: Finance Agent
+    action: review_budget_exposure_and_unverified_cost_fields
+    inputs:
+      - docs/hardware/bom-template.md
+      - docs/finance/cashflow-scenario-template.md
+    outputs:
+      - finance_review_notes
+    approval_state: reviewed
+  - id: founder_gate
+    agent: Hardware Architect Agent
+    action: generate_founder_approval_package_for_purchase_supplier_pcb_evt_or_mass_production_actions
+    inputs:
+      - supply_chain_review_notes
+      - security_review_notes
+      - qa_review_notes
+      - finance_review_notes
+    outputs:
+      - founder_approval_package
+    approval_state: pending_founder_approval
+guardrails:
+  forbidden_actions:
+    - payment
+    - contract_signing
+    - external_send
+    - privacy_policy_change
+    - security_exception
+    - mass_production_commitment
+    - production_secret_use
+    - supplier_contact
+    - purchase_order
+    - pcb_fabrication_order
+  high_risk_policy: founder_approval_required
+  unknown_fact_policy: mark_as_uncollected_or_pending_verification
+  execution_policy: review_only_until_founder_approval
+evaluation:
+  eval_file: evals/hardware-agent-evals.yaml
+  cases:
+    - hardware_review_requires_principal_outputs
+    - purchase_or_supplier_contact_requires_approval
+    - bringup_requires_measurement_evidence

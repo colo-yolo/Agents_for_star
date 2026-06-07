@@ -50,6 +50,7 @@ powershell -ExecutionPolicy Bypass -File scripts\run-evals.ps1
 | 用户研究、痛点、试点意向、主场景 | `workflows/user-research-sprint.yaml` |
 | POC、设备输入、Orchestrator、审批流 | `workflows/phase-1-orchestrator-poc.yaml` |
 | 模型、提示词、成本、评估 | `workflows/model-cost-eval.yaml` |
+| 硬件架构、BOM、PCB、bring-up、EVT、FMEA | `workflows/hardware-principal-review.yaml` |
 
 If no workflow fits, use `docs/agents/role-registry.md` to select one primary Agent and one or more reviewer Agents, then propose a new workflow YAML instead of inventing behavior.
 
@@ -100,3 +101,4 @@ Use this structure in responses or documents:
 - Do not use banned placeholder words.
 - Prefer repository scripts over reimplementing dispatch logic.
 - Keep all generated docs in Chinese unless the user asks otherwise.
+- For hardware tasks, use Hardware Architect Agent as a Principal-level reviewer and read `docs/hardware/hardware-principal-playbook.md`, `docs/hardware/hardware-design-review-checklist.md`, `docs/hardware/hardware-bringup-evt-plan.md`, and `docs/hardware/hardware-fmea-template.md`.

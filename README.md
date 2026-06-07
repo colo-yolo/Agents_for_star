@@ -31,6 +31,7 @@
 | [docs/evaluation/](docs/evaluation/) | Agent 输出评分、任务回放、失败分类和成本质量记录 |
 | [docs/evaluation/eval-ci-gate.md](docs/evaluation/eval-ci-gate.md) | Agent Eval CI Gate 规则 |
 | [docs/references/open-source-agent-patterns.md](docs/references/open-source-agent-patterns.md) | 开源 Agent 项目借鉴分析 |
+| [docs/references/hardware-engineering-patterns.md](docs/references/hardware-engineering-patterns.md) | 高级硬件工程实践蒸馏 |
 | [docs/audit/](docs/audit/) | Agent 调度审计日志落盘规范和示例 |
 | [workflows/](workflows/) | Codex 可读取的 Agent workflow YAML 样例 |
 | [evals/](evals/) | Agent 路由、审批和输出质量评估样例 |
@@ -85,6 +86,12 @@
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install-local-codex-agents.ps1
 powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
+```
+
+高级硬件 Agent 调度示例:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 -Workflow workflows/hardware-principal-review.yaml -TaskId TASK-HW-REVIEW-001 -Goal "Principal 硬件架构评审"
 ```
 
 最小 Orchestrator 原型命令:
