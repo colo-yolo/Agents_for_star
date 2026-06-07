@@ -25,3 +25,5 @@
 2. 涉及隐私、安全、合规、财务、对外动作时必须增加审查 Agent。
 3. 高风险动作不能自动执行, 必须进入创始人审批。
 4. 输出必须写入对应事实源目录或形成 issue 草案。
+5. 所有 Agent 默认按 `docs/agents/principal-agent-capability-standard.md` 执行, 包含 Principal 级工作方式、决策门控、高级交付物、证据链要求和反模式。
+6. 复审 Agent 协议、本地 Codex Skill、workflow、eval 或调度策略时使用 `workflows/principal-agent-review.yaml`, 主 Agent 为 Knowledge Ops Agent, 审查 Agent 为 CEO Strategy、Product Manager、Security、QA Reliability、Compliance 和 Finance。

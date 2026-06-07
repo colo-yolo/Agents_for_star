@@ -54,9 +54,13 @@ $requiredRepoFiles = @(
     'workflows/user-research-sprint.yaml',
     'workflows/phase-1-orchestrator-poc.yaml',
     'workflows/model-cost-eval.yaml',
+    'workflows/hardware-principal-review.yaml',
+    'workflows/principal-agent-review.yaml',
     'scripts/invoke-orchestrator.ps1',
     'scripts/validate-schemas.ps1',
-    'scripts/run-evals.ps1'
+    'scripts/run-evals.ps1',
+    'scripts/validate-agent-capabilities.ps1',
+    'docs/agents/principal-agent-capability-standard.md'
 )
 
 foreach ($path in $requiredRepoFiles) {
@@ -72,6 +76,19 @@ if ($LASTEXITCODE -ne 0) {
     $result = $smoke | ConvertFrom-Json
     if ($result.primary_agent -ne 'Product Manager Agent') {
         Add-Failure "orchestrator smoke returned unexpected primary agent: $($result.primary_agent)"
+    }
+}
+
+$principalSmoke = & powershell -ExecutionPolicy Bypass -File (Join-Path $root 'scripts/invoke-orchestrator.ps1') -Workflow (Join-Path $root 'workflows/principal-agent-review.yaml') -TaskId 'TASK-LOCAL-CODEX-PRINCIPAL-SMOKE' -Goal 'local codex principal agent review smoke' 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Add-Failure "principal orchestrator smoke failed: $principalSmoke"
+} else {
+    $principalResult = $principalSmoke | ConvertFrom-Json
+    if ($principalResult.primary_agent -ne 'Knowledge Ops Agent') {
+        Add-Failure "principal orchestrator smoke returned unexpected primary agent: $($principalResult.primary_agent)"
+    }
+    if (-not [bool]$principalResult.approval_required) {
+        Add-Failure "principal orchestrator smoke should require founder approval"
     }
 }
 

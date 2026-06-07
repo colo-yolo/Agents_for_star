@@ -22,23 +22,25 @@ Before working, verify the path exists. If the user is already inside this repo,
 ## Core Workflow
 
 1. Read `docs/codex-operator-playbook.md`.
-2. Select the closest workflow in `workflows/*.yaml`.
-3. Run the Orchestrator prototype:
+2. Read `docs/agents/principal-agent-capability-standard.md`; all roles execute at Principal level unless a stricter role-specific playbook applies.
+3. Select the closest workflow in `workflows/*.yaml`.
+4. Run the Orchestrator prototype:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\invoke-orchestrator.ps1 -Workflow workflows\user-research-sprint.yaml -TaskId TASK-由创始人填写 -Goal "由创始人填写"
 ```
 
-4. Read the returned `primary_agent` protocol from `docs/agents/roles/`.
-5. Read each returned `review_agents` protocol from `docs/agents/roles/`.
-6. Execute the task as a primary Agent draft plus reviewer critique.
-7. If `approval_required` is true or the task is high risk, generate only a founder approval package and do not execute the action.
-8. Write outputs only to `allowed_output_paths`.
-9. Validate before completion:
+5. Read the returned `primary_agent` protocol from `docs/agents/roles/`.
+6. Read each returned `review_agents` protocol from `docs/agents/roles/`.
+7. Execute the task as a primary Agent draft plus reviewer critique.
+8. If `approval_required` is true or the task is high risk, generate only a founder approval package and do not execute the action.
+9. Write outputs only to `allowed_output_paths`.
+10. Validate before completion:
 
 ```powershell
 git diff --check
 powershell -ExecutionPolicy Bypass -File scripts\validate-docs.ps1
+powershell -ExecutionPolicy Bypass -File scripts\validate-agent-capabilities.ps1
 powershell -ExecutionPolicy Bypass -File scripts\validate-schemas.ps1
 powershell -ExecutionPolicy Bypass -File scripts\run-evals.ps1
 ```
@@ -51,6 +53,7 @@ powershell -ExecutionPolicy Bypass -File scripts\run-evals.ps1
 | POC、设备输入、Orchestrator、审批流 | `workflows/phase-1-orchestrator-poc.yaml` |
 | 模型、提示词、成本、评估 | `workflows/model-cost-eval.yaml` |
 | 硬件架构、BOM、PCB、bring-up、EVT、FMEA | `workflows/hardware-principal-review.yaml` |
+| Agent 协议升级、Principal 能力复审、本地 Codex Skill 调度配置 | `workflows/principal-agent-review.yaml` |
 
 If no workflow fits, use `docs/agents/role-registry.md` to select one primary Agent and one or more reviewer Agents, then propose a new workflow YAML instead of inventing behavior.
 
@@ -101,4 +104,5 @@ Use this structure in responses or documents:
 - Do not use banned placeholder words.
 - Prefer repository scripts over reimplementing dispatch logic.
 - Keep all generated docs in Chinese unless the user asks otherwise.
+- For any role, apply `docs/agents/principal-agent-capability-standard.md`: Principal working mode, decision gates, advanced deliverables, evidence chain, and anti-patterns.
 - For hardware tasks, use Hardware Architect Agent as a Principal-level reviewer and read `docs/hardware/hardware-principal-playbook.md`, `docs/hardware/hardware-design-review-checklist.md`, `docs/hardware/hardware-bringup-evt-plan.md`, and `docs/hardware/hardware-fmea-template.md`.

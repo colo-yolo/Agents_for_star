@@ -22,6 +22,10 @@ jobs:
         shell: powershell
         run: powershell -ExecutionPolicy Bypass -File scripts\validate-docs.ps1
 
+      - name: Validate agent capabilities
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File scripts\validate-agent-capabilities.ps1
+
       - name: Validate schemas
         shell: powershell
         run: powershell -ExecutionPolicy Bypass -File scripts\validate-schemas.ps1

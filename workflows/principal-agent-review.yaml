@@ -1,0 +1,116 @@
+workflow_id: principal_agent_review
+name: Principal Agent 能力复审
+description: 按 Principal 级 Agent 能力标准复审 16 个角色协议、本地 Codex 调度 Skill、workflow、eval 和审批边界, 确保本地 Codex 可直接调度这些 Agent 工作。
+risk_default: high
+trigger:
+  source: manual
+  accepted_inputs:
+    - founder_goal
+    - agent_protocol_change
+    - local_codex_skill_change
+    - workflow_eval_change
+agents:
+  primary: Knowledge Ops Agent
+  reviewers:
+    - CEO Strategy Agent
+    - Product Manager Agent
+    - Security Agent
+    - QA Reliability Agent
+    - Compliance Agent
+    - Finance Agent
+  archive: Knowledge Ops Agent
+context_paths:
+  - docs/agents/principal-agent-capability-standard.md
+  - docs/agents/role-registry.md
+  - docs/agents/handoff-contract.md
+  - docs/codex-operator-playbook.md
+  - docs/local-codex-agent-setup.md
+  - codex-skills/agents-for-star-orchestrator/SKILL.md
+  - scripts/validate-agent-capabilities.ps1
+  - scripts/install-local-codex-agents.ps1
+  - scripts/verify-local-codex-agents.ps1
+output_paths:
+  - docs/agents/principal-agent-capability-standard.md
+  - docs/agents/role-registry.md
+  - docs/codex-operator-playbook.md
+  - docs/local-codex-agent-setup.md
+  - codex-skills/agents-for-star-orchestrator/SKILL.md
+  - workflows/principal-agent-review.yaml
+  - evals/principal-agent-capability-evals.yaml
+steps:
+  - id: load_principal_standard
+    agent: Knowledge Ops Agent
+    action: read_principal_standard_role_registry_and_local_codex_skill
+    inputs:
+      - context_paths
+    outputs:
+      - agent_capability_review_context
+    approval_state: draft
+  - id: validate_role_protocols
+    agent: Knowledge Ops Agent
+    action: run_or_request_agent_capability_validation_and_identify_role_gaps
+    inputs:
+      - docs/agents/principal-agent-capability-standard.md
+      - docs/agents/role-registry.md
+      - scripts/validate-agent-capabilities.ps1
+    outputs:
+      - role_protocol_gap_report
+    approval_state: draft
+  - id: strategy_product_review
+    agent: CEO Strategy Agent
+    action: review_agent_system_coverage_against_product_strategy_and_opc_constraints
+    inputs:
+      - role_protocol_gap_report
+      - docs/agents/role-registry.md
+    outputs:
+      - strategy_product_review_notes
+    approval_state: reviewed
+  - id: security_compliance_finance_review
+    agent: Security Agent
+    action: review_high_risk_guardrails_for_security_compliance_finance_and_external_actions
+    inputs:
+      - role_protocol_gap_report
+      - docs/agents/handoff-contract.md
+    outputs:
+      - risk_guardrail_review_notes
+    approval_state: reviewed
+  - id: qa_eval_review
+    agent: QA Reliability Agent
+    action: review_validation_scripts_workflows_evals_and_local_codex_install_checks
+    inputs:
+      - scripts/validate-agent-capabilities.ps1
+      - scripts/verify-local-codex-agents.ps1
+      - evals/principal-agent-capability-evals.yaml
+    outputs:
+      - qa_eval_review_notes
+    approval_state: reviewed
+  - id: founder_gate
+    agent: Knowledge Ops Agent
+    action: generate_founder_approval_package_for_role_deletion_security_exception_external_commitment_or_local_codex_dispatch_policy_change
+    inputs:
+      - strategy_product_review_notes
+      - risk_guardrail_review_notes
+      - qa_eval_review_notes
+    outputs:
+      - founder_approval_package
+    approval_state: pending_founder_approval
+guardrails:
+  forbidden_actions:
+    - payment
+    - contract_signing
+    - external_send
+    - privacy_policy_change
+    - security_exception
+    - mass_production_commitment
+    - production_secret_use
+    - role_protocol_deletion
+    - local_codex_dispatch_policy_change
+  high_risk_policy: founder_approval_required
+  unknown_fact_policy: mark_as_uncollected_or_pending_verification
+  execution_policy: review_and_document_only_until_founder_approval
+evaluation:
+  eval_file: evals/principal-agent-capability-evals.yaml
+  cases:
+    - all_roles_require_principal_sections
+    - local_codex_skill_requires_principal_standard
+    - dispatch_policy_change_requires_founder_approval

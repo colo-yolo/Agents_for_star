@@ -8,12 +8,13 @@
 
 1. 选择一个 workflow, 例如 `workflows/user-research-sprint.yaml`。
 2. 让 Codex 读取 `docs/agents/handoff-contract.md`。
-3. 让 Codex 读取 workflow 中声明的主 Agent 和审查 Agent 角色协议。
-4. 运行 Orchestrator 原型生成调度包。
-5. 主 Agent 输出草案。
-6. 审查 Agent 检查风险、事实缺口和验收标准。
-7. high risk 任务停止在创始人审批包。
-8. 运行校验并提交。
+3. 让 Codex 读取 `docs/agents/principal-agent-capability-standard.md`。
+4. 让 Codex 读取 workflow 中声明的主 Agent 和审查 Agent 角色协议。
+5. 运行 Orchestrator 原型生成调度包。
+6. 主 Agent 输出草案。
+7. 审查 Agent 检查风险、事实缺口和验收标准。
+8. high risk 任务停止在创始人审批包。
+9. 运行校验并提交。
 
 ## 标准 `/goal` 模板
 
@@ -25,6 +26,7 @@ Context:
 - Workflow: workflows/由创始人填写.yaml
 - Handoff: docs/agents/handoff-contract.md
 - Role registry: docs/agents/role-registry.md
+- Principal standard: docs/agents/principal-agent-capability-standard.md
 
 Requirements:
 - 先运行 `powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 -Workflow workflows/由创始人填写.yaml -TaskId TASK-由创始人填写 -Goal "由创始人填写"`。
@@ -36,6 +38,7 @@ Requirements:
 Verification:
 - 运行 `git diff --check`。
 - 运行 `powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1`。
+- 运行 `powershell -ExecutionPolicy Bypass -File scripts/validate-agent-capabilities.ps1`。
 - 运行 `powershell -ExecutionPolicy Bypass -File scripts/validate-schemas.ps1`。
 - 运行 `powershell -ExecutionPolicy Bypass -File scripts/run-evals.ps1`。
 
@@ -78,6 +81,7 @@ powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
 | POC Orchestrator | `workflows/phase-1-orchestrator-poc.yaml` | Backend Agent | Security Agent、QA Reliability Agent |
 | 模型成本评估 | `workflows/model-cost-eval.yaml` | AI ML Agent | Security Agent、Finance Agent |
 | 硬件架构评审 | `workflows/hardware-principal-review.yaml` | Hardware Architect Agent | Supply Chain Agent、Security Agent、Firmware Agent、QA Reliability Agent、Finance Agent |
+| Agent 能力复审和本地 Codex 配置 | `workflows/principal-agent-review.yaml` | Knowledge Ops Agent | CEO Strategy Agent、Product Manager Agent、Security Agent、QA Reliability Agent、Compliance Agent、Finance Agent |
 
 ### Principal 硬件架构评审
 
@@ -96,6 +100,23 @@ powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
 - `docs/hardware/hardware-bringup-evt-plan.md`
 - `docs/hardware/hardware-fmea-template.md`
 
+### Principal Agent 能力复审
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
+  -Workflow workflows/principal-agent-review.yaml `
+  -TaskId TASK-PRINCIPAL-AGENT-REVIEW-001 `
+  -Goal "复审 16 个 Agent 协议、本地 Codex Skill、workflow、eval 和审批边界"
+```
+
+Agent 系统复审必须读取:
+
+- `docs/agents/principal-agent-capability-standard.md`
+- `docs/agents/role-registry.md`
+- `codex-skills/agents-for-star-orchestrator/SKILL.md`
+- `scripts/validate-agent-capabilities.ps1`
+- `scripts/verify-local-codex-agents.ps1`
+
 ## 停止条件
 
 遇到以下情况, Codex 必须停止执行动作, 只输出审批包:
@@ -112,7 +133,9 @@ powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 `
 ```powershell
 git diff --check
 powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1
+powershell -ExecutionPolicy Bypass -File scripts/validate-agent-capabilities.ps1
 powershell -ExecutionPolicy Bypass -File scripts/validate-schemas.ps1
 powershell -ExecutionPolicy Bypass -File scripts/run-evals.ps1
+powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
 git status --short --branch
 ```

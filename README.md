@@ -23,6 +23,7 @@
 | [docs/agents/role-registry.md](docs/agents/role-registry.md) | Agent 角色注册表 |
 | [docs/agents/roles/](docs/agents/roles/) | 16 个核心 Agent 独立角色协议 |
 | [docs/agents/handoff-contract.md](docs/agents/handoff-contract.md) | Agent 之间的标准交接合约 |
+| [docs/agents/principal-agent-capability-standard.md](docs/agents/principal-agent-capability-standard.md) | 16 个 Agent 的 Principal 级能力基线 |
 | [docs/research/](docs/research/) | 用户研究、痛点评分、硬件验收和试点意向模板 |
 | [docs/orchestrator/](docs/orchestrator/) | Agent 任务路由、审批状态机、审计日志、工具权限和记忆策略 |
 | [docs/orchestrator/workflow-spec.md](docs/orchestrator/workflow-spec.md) | Workflow YAML 配置规范 |
@@ -81,6 +82,8 @@
 
 如果需要调度多个 Agent, 优先让 Codex 读取 `workflows/*.yaml`、`docs/agents/handoff-contract.md` 和对应角色协议。当前推荐路线是先用 YAML 做确定性路由, 再在 POC 阶段评估 OpenAI Agents SDK、LangGraph 或 Microsoft Agent Framework 等运行时。
 
+Agent 系统自身复审可以直接调度 `workflows/principal-agent-review.yaml`, 由 Knowledge Ops Agent 主导, CEO Strategy、Product、Security、QA、Compliance 和 Finance 审查。
+
 本地 Codex Skill 安装:
 
 ```powershell
@@ -94,6 +97,12 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
 powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 -Workflow workflows/hardware-principal-review.yaml -TaskId TASK-HW-REVIEW-001 -Goal "Principal 硬件架构评审"
 ```
 
+Principal Agent 能力复审示例:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 -Workflow workflows/principal-agent-review.yaml -TaskId TASK-PRINCIPAL-REVIEW-001 -Goal "复审 16 个 Agent 协议和本地 Codex 调度配置"
+```
+
 最小 Orchestrator 原型命令:
 
 ```powershell
@@ -105,6 +114,7 @@ powershell -ExecutionPolicy Bypass -File scripts/invoke-orchestrator.ps1 -Workfl
 ```powershell
 git diff --check
 powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1
+powershell -ExecutionPolicy Bypass -File scripts/validate-agent-capabilities.ps1
 powershell -ExecutionPolicy Bypass -File scripts/validate-schemas.ps1
 powershell -ExecutionPolicy Bypass -File scripts/run-evals.ps1
 powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
