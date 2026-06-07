@@ -21,10 +21,25 @@
 | [docs/strategy/okr.md](docs/strategy/okr.md) | Phase 0 OKR |
 | [docs/product/prd-v1.md](docs/product/prd-v1.md) | PRD v1 |
 | [docs/agents/role-registry.md](docs/agents/role-registry.md) | Agent 角色注册表 |
+| [docs/agents/roles/](docs/agents/roles/) | 16 个核心 Agent 独立角色协议 |
+| [docs/research/](docs/research/) | 用户研究、痛点评分、硬件验收和试点意向模板 |
+| [docs/orchestrator/](docs/orchestrator/) | Agent 任务路由、审批状态机、审计日志、工具权限和记忆策略 |
+| [docs/phase-1-poc/](docs/phase-1-poc/) | Phase 1 POC 架构、设备输入模拟器、Demo 脚本、测试计划和验收清单 |
+| [docs/evaluation/](docs/evaluation/) | Agent 输出评分、任务回放、失败分类和成本质量记录 |
 | [docs/security/threat-model.md](docs/security/threat-model.md) | 威胁模型初稿 |
+| [docs/security/access-control-matrix.md](docs/security/access-control-matrix.md) | 访问控制矩阵产品设计初稿 |
 | [docs/compliance/privacy-impact-assessment.md](docs/compliance/privacy-impact-assessment.md) | 隐私影响分析初稿 |
+| [docs/compliance/data-retention-policy-draft.md](docs/compliance/data-retention-policy-draft.md) | 数据保留政策产品设计初稿 |
+| [docs/compliance/founder-approval-policy.md](docs/compliance/founder-approval-policy.md) | 创始人审批政策产品设计初稿 |
 | [docs/operations/dashboard-metrics.md](docs/operations/dashboard-metrics.md) | OPC 经营指标表 |
+| [docs/operations/weekly-review-template.md](docs/operations/weekly-review-template.md) | 每周经营复盘模板 |
+| [docs/operations/decision-dashboard.md](docs/operations/decision-dashboard.md) | 关键决策和审批状态仪表盘 |
+| [docs/finance/cashflow-scenario-template.md](docs/finance/cashflow-scenario-template.md) | 现金流情景模板 |
 | [docs/codex-goals/phase-1-poc-goal.md](docs/codex-goals/phase-1-poc-goal.md) | 下一阶段 POC `/goal` |
+| [docs/codex-goals/master-roadmap.md](docs/codex-goals/master-roadmap.md) | 后续 6 个可复制 `/goal` 总路线 |
+| [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) | GitHub bug、feature、research、risk、decision 协作模板 |
+| [.github/pull_request_template.md](.github/pull_request_template.md) | Pull Request 检查模板 |
+| [scripts/validate-docs.ps1](scripts/validate-docs.ps1) | 文档完整性、占位词、乱码和 Markdown 空白校验脚本 |
 | [docs/superpowers/specs/2026-06-07-opc-ai-hardware-agents-design.md](docs/superpowers/specs/2026-06-07-opc-ai-hardware-agents-design.md) | 当前阶段设计规格 |
 | [docs/superpowers/plans/2026-06-07-opc-ai-hardware-agents-development-plan.md](docs/superpowers/plans/2026-06-07-opc-ai-hardware-agents-development-plan.md) | 后续执行计划 |
 | [AGENTS.md](AGENTS.md) | Codex 在本仓库工作的长期规则 |
@@ -38,6 +53,24 @@
 ```
 
 建议把长任务说明放进文件, 再让 `/goal` 指向该文件。这样后续 Codex 会话可以从仓库事实源读取完整上下文, 不依赖一次性聊天记录。
+
+## 后续开发路线
+
+后续开发建议从 [docs/codex-goals/master-roadmap.md](docs/codex-goals/master-roadmap.md) 逐个复制 `/goal` 执行:
+
+1. 用户研究冲刺: 采集真实证据, 完成主场景决策。
+2. Agent 协议扩展: 强化 16 个角色的协作矩阵、审查链路和输出包格式。
+3. Orchestrator 实现: 做最小任务路由、风险分级、审批状态和审计日志工程骨架。
+4. Phase 1 POC: 用设备输入模拟器打通主场景闭环, 不承诺量产。
+5. 评估体系: 用回放用例评估正确性、可执行性、风险识别、成本和人工修改量。
+6. 安全合规强化: 完善访问控制、数据保留、威胁模型和 PR 安全门禁。
+
+每个目标完成前都应运行:
+
+```powershell
+git diff --check
+powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1
+```
 
 ## 当前阶段的核心假设
 
