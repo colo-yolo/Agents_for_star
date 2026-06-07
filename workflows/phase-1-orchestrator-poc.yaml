@@ -1,0 +1,103 @@
+workflow_id: phase_1_orchestrator_poc
+name: Phase 1 Orchestrator POC
+description: 打通设备输入模拟器、任务路由、Agent 输出、风险判断、创始人审批和审计日志的最小闭环。
+risk_default: high
+trigger:
+  source: manual
+  accepted_inputs:
+    - device_simulator_event
+    - github_doc
+    - founder_goal
+agents:
+  primary: Backend Agent
+  reviewers:
+    - Security Agent
+    - QA Reliability Agent
+  archive: Knowledge Ops Agent
+context_paths:
+  - docs/orchestrator/task-routing-protocol.md
+  - docs/orchestrator/approval-state-machine.md
+  - docs/orchestrator/audit-log-schema.md
+  - docs/orchestrator/tool-permission-model.md
+  - docs/phase-1-poc/architecture.md
+  - docs/phase-1-poc/device-input-simulator.md
+  - docs/phase-1-poc/test-plan.md
+output_paths:
+  - docs/phase-1-poc/architecture.md
+  - docs/phase-1-poc/device-input-simulator.md
+  - docs/phase-1-poc/founder-approval-flow.md
+  - docs/phase-1-poc/demo-script.md
+  - docs/phase-1-poc/test-plan.md
+  - docs/phase-1-poc/acceptance-checklist.md
+steps:
+  - id: parse_device_event
+    agent: Backend Agent
+    action: define_device_event_contract
+    inputs:
+      - docs/phase-1-poc/device-input-simulator.md
+    outputs:
+      - device_event_contract
+    approval_state: draft
+  - id: route_task
+    agent: Backend Agent
+    action: map_event_to_primary_and_review_agents
+    inputs:
+      - device_event_contract
+      - docs/orchestrator/task-routing-protocol.md
+    outputs:
+      - routing_decision
+    approval_state: draft
+  - id: security_review
+    agent: Security Agent
+    action: review_permissions_and_high_risk_paths
+    inputs:
+      - routing_decision
+      - docs/orchestrator/tool-permission-model.md
+    outputs:
+      - security_review_notes
+    approval_state: reviewed
+  - id: qa_review
+    agent: QA Reliability Agent
+    action: update_replay_and_acceptance_checks
+    inputs:
+      - routing_decision
+      - security_review_notes
+    outputs:
+      - docs/phase-1-poc/test-plan.md
+      - docs/phase-1-poc/acceptance-checklist.md
+    approval_state: reviewed
+  - id: founder_gate
+    agent: Backend Agent
+    action: generate_founder_approval_package_for_high_risk_actions
+    inputs:
+      - routing_decision
+      - security_review_notes
+    outputs:
+      - docs/phase-1-poc/founder-approval-flow.md
+    approval_state: pending_founder_approval
+  - id: archive_trace
+    agent: Knowledge Ops Agent
+    action: record_demo_trace_and_next_goal
+    inputs:
+      - docs/phase-1-poc/demo-script.md
+      - docs/phase-1-poc/acceptance-checklist.md
+    outputs:
+      - docs/phase-1-poc/demo-script.md
+    approval_state: archived
+guardrails:
+  forbidden_actions:
+    - payment
+    - contract_signing
+    - external_send
+    - privacy_policy_change
+    - security_exception
+    - mass_production_commitment
+    - production_secret_use
+  high_risk_policy: founder_approval_required
+  unknown_fact_policy: mark_as_uncollected_or_pending_verification
+  execution_policy: simulate_only_until_founder_approval
+evaluation:
+  eval_file: evals/agent-routing-evals.yaml
+  cases:
+    - high_risk_tool_requires_approval
+    - audit_log_fields_are_present

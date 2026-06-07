@@ -22,10 +22,17 @@
 | [docs/product/prd-v1.md](docs/product/prd-v1.md) | PRD v1 |
 | [docs/agents/role-registry.md](docs/agents/role-registry.md) | Agent 角色注册表 |
 | [docs/agents/roles/](docs/agents/roles/) | 16 个核心 Agent 独立角色协议 |
+| [docs/agents/handoff-contract.md](docs/agents/handoff-contract.md) | Agent 之间的标准交接合约 |
 | [docs/research/](docs/research/) | 用户研究、痛点评分、硬件验收和试点意向模板 |
 | [docs/orchestrator/](docs/orchestrator/) | Agent 任务路由、审批状态机、审计日志、工具权限和记忆策略 |
+| [docs/orchestrator/workflow-spec.md](docs/orchestrator/workflow-spec.md) | Workflow YAML 配置规范 |
+| [docs/orchestrator/runtime-options.md](docs/orchestrator/runtime-options.md) | Agent 运行时选型建议 |
 | [docs/phase-1-poc/](docs/phase-1-poc/) | Phase 1 POC 架构、设备输入模拟器、Demo 脚本、测试计划和验收清单 |
 | [docs/evaluation/](docs/evaluation/) | Agent 输出评分、任务回放、失败分类和成本质量记录 |
+| [docs/evaluation/eval-ci-gate.md](docs/evaluation/eval-ci-gate.md) | Agent Eval CI Gate 规则 |
+| [docs/references/open-source-agent-patterns.md](docs/references/open-source-agent-patterns.md) | 开源 Agent 项目借鉴分析 |
+| [workflows/](workflows/) | Codex 可读取的 Agent workflow YAML 样例 |
+| [evals/](evals/) | Agent 路由、审批和输出质量评估样例 |
 | [docs/security/threat-model.md](docs/security/threat-model.md) | 威胁模型初稿 |
 | [docs/security/access-control-matrix.md](docs/security/access-control-matrix.md) | 访问控制矩阵产品设计初稿 |
 | [docs/compliance/privacy-impact-assessment.md](docs/compliance/privacy-impact-assessment.md) | 隐私影响分析初稿 |
@@ -64,6 +71,8 @@
 4. Phase 1 POC: 用设备输入模拟器打通主场景闭环, 不承诺量产。
 5. 评估体系: 用回放用例评估正确性、可执行性、风险识别、成本和人工修改量。
 6. 安全合规强化: 完善访问控制、数据保留、威胁模型和 PR 安全门禁。
+
+如果需要调度多个 Agent, 优先让 Codex 读取 `workflows/*.yaml`、`docs/agents/handoff-contract.md` 和对应角色协议。当前推荐路线是先用 YAML 做确定性路由, 再在 POC 阶段评估 OpenAI Agents SDK、LangGraph 或 Microsoft Agent Framework 等运行时。
 
 每个目标完成前都应运行:
 
