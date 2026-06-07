@@ -47,7 +47,9 @@
 | [docs/codex-goals/phase-1-poc-goal.md](docs/codex-goals/phase-1-poc-goal.md) | 下一阶段 POC `/goal` |
 | [docs/codex-goals/master-roadmap.md](docs/codex-goals/master-roadmap.md) | 后续 6 个可复制 `/goal` 总路线 |
 | [docs/codex-operator-playbook.md](docs/codex-operator-playbook.md) | Codex 调度多 Agent 的操作手册 |
+| [docs/local-codex-agent-setup.md](docs/local-codex-agent-setup.md) | 本地 Codex Skill 安装和验证说明 |
 | [docs/examples/](docs/examples/) | 用户研究、POC、BOM、客户邮件、模型成本和隐私策略样例 |
+| [codex-skills/agents-for-star-orchestrator/](codex-skills/agents-for-star-orchestrator/) | 可安装到本机 Codex 的 Agents for Star 调度 Skill |
 | [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) | GitHub bug、feature、research、risk、decision 协作模板 |
 | [.github/pull_request_template.md](.github/pull_request_template.md) | Pull Request 检查模板 |
 | [scripts/validate-docs.ps1](scripts/validate-docs.ps1) | 文档完整性、占位词、乱码和 Markdown 空白校验脚本 |
@@ -78,6 +80,13 @@
 
 如果需要调度多个 Agent, 优先让 Codex 读取 `workflows/*.yaml`、`docs/agents/handoff-contract.md` 和对应角色协议。当前推荐路线是先用 YAML 做确定性路由, 再在 POC 阶段评估 OpenAI Agents SDK、LangGraph 或 Microsoft Agent Framework 等运行时。
 
+本地 Codex Skill 安装:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install-local-codex-agents.ps1
+powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
+```
+
 最小 Orchestrator 原型命令:
 
 ```powershell
@@ -91,6 +100,7 @@ git diff --check
 powershell -ExecutionPolicy Bypass -File scripts/validate-docs.ps1
 powershell -ExecutionPolicy Bypass -File scripts/validate-schemas.ps1
 powershell -ExecutionPolicy Bypass -File scripts/run-evals.ps1
+powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
 ```
 
 ## 当前阶段的核心假设

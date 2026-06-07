@@ -38,3 +38,10 @@ git diff --check
 - 没有常见英文或中文占位文字。
 - `/goal` prompt 包含目标、交付物、需求、验证和停止条件。
 - Agent 规划覆盖产品、研发、供应链、合规、市场销售、运营和财务。
+
+如果修改本地 Codex Agent 调度配置, 还要运行:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install-local-codex-agents.ps1
+powershell -ExecutionPolicy Bypass -File scripts/verify-local-codex-agents.ps1
+```

@@ -1,0 +1,3 @@
+display_name: Agents for Star Orchestrator
+short_description: Dispatch local Agents for Star roles through workflow YAML, approval gates, and eval checks.
+default_prompt: 调度 Agents for Star。请选择合适的 workflow，运行 Orchestrator，读取主 Agent 和审查 Agent 协议，输出草案、审查意见和必要的创始人审批包。
