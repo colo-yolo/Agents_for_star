@@ -3,6 +3,10 @@ $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $source = Join-Path $root 'codex-skills/agents-for-star-orchestrator'
 $target = Join-Path $env:USERPROFILE '.codex/skills/agents-for-star-orchestrator'
+$pluginName = 'agents-for-star'
+$marketplaceName = 'agents-for-star-local'
+$pluginRoot = Join-Path $root "plugins/$pluginName"
+$marketplacePath = Join-Path $root '.agents/plugins/marketplace.json'
 $failures = New-Object System.Collections.Generic.List[string]
 
 function Add-Failure {
@@ -60,12 +64,104 @@ $requiredRepoFiles = @(
     'scripts/validate-schemas.ps1',
     'scripts/run-evals.ps1',
     'scripts/validate-agent-capabilities.ps1',
-    'docs/agents/principal-agent-capability-standard.md'
+    'docs/agents/principal-agent-capability-standard.md',
+    'scripts/build-local-codex-agent-plugin.ps1',
+    'plugins/agents-for-star/.codex-plugin/plugin.json',
+    '.agents/plugins/marketplace.json'
 )
 
 foreach ($path in $requiredRepoFiles) {
     if (-not (Test-Path -LiteralPath (Join-Path $root $path))) {
         Add-Failure "missing required repo file for local Codex dispatch: $path"
+    }
+}
+
+$expectedSlashSkills = @(
+    'star-orchestrator',
+    'star-ceo-strategy',
+    'star-product-manager',
+    'star-hardware-architect',
+    'star-firmware',
+    'star-ai-ml',
+    'star-backend',
+    'star-app-ux',
+    'star-qa-reliability',
+    'star-supply-chain',
+    'star-compliance',
+    'star-security',
+    'star-finance',
+    'star-marketing',
+    'star-sales',
+    'star-customer-success',
+    'star-knowledge-ops'
+)
+
+if (Test-Path -LiteralPath (Join-Path $pluginRoot '.codex-plugin/plugin.json')) {
+    $pluginJson = Get-Content -LiteralPath (Join-Path $pluginRoot '.codex-plugin/plugin.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($pluginJson.name -ne $pluginName) {
+        Add-Failure "plugin manifest name is not $pluginName"
+    }
+    if ($pluginJson.skills -ne './skills/') {
+        Add-Failure "plugin manifest skills path is not ./skills/"
+    }
+}
+
+if (Test-Path -LiteralPath $marketplacePath) {
+    $marketplaceJson = Get-Content -LiteralPath $marketplacePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($marketplaceJson.name -ne $marketplaceName) {
+        Add-Failure "marketplace name is not $marketplaceName"
+    }
+    $entry = $marketplaceJson.plugins | Where-Object { $_.name -eq $pluginName } | Select-Object -First 1
+    if (-not $entry) {
+        Add-Failure "marketplace does not include $pluginName"
+    } elseif ($entry.source.path -ne "./plugins/$pluginName") {
+        Add-Failure "marketplace source path is not ./plugins/$pluginName"
+    }
+}
+
+foreach ($skill in $expectedSlashSkills) {
+    $skillFile = Join-Path $pluginRoot "skills/$skill/SKILL.md"
+    $agentFile = Join-Path $pluginRoot "skills/$skill/agents/openai.yaml"
+    if (-not (Test-Path -LiteralPath $skillFile)) {
+        Add-Failure "missing slash skill file: $skillFile"
+        continue
+    }
+    if (-not (Test-Path -LiteralPath $agentFile)) {
+        Add-Failure "missing slash skill agent metadata: $agentFile"
+    }
+    $content = Get-Content -LiteralPath $skillFile -Raw -Encoding UTF8
+    if ($content -notmatch "(?m)^name:\s*$([regex]::Escape($skill))\s*$") {
+        Add-Failure "slash skill has wrong frontmatter name: $skill"
+    }
+    if ($content -notmatch 'principal-agent-capability-standard.md') {
+        Add-Failure "slash skill does not reference Principal capability standard: $skill"
+    }
+}
+
+$marketplaceList = & codex plugin marketplace list 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Add-Failure "codex plugin marketplace list failed: $marketplaceList"
+} else {
+    $marketplaceLine = $marketplaceList | Where-Object { $_ -match "^$([regex]::Escape($marketplaceName))\s+" } | Select-Object -First 1
+    if (-not $marketplaceLine) {
+        Add-Failure "Codex marketplace is not configured: $marketplaceName"
+    } elseif ($marketplaceLine -notmatch [regex]::Escape($root)) {
+        Add-Failure "Codex marketplace $marketplaceName does not point at this repo: $marketplaceLine"
+    }
+}
+
+$pluginListJsonText = & codex plugin list --available --json 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Add-Failure "codex plugin list --available --json failed: $pluginListJsonText"
+} else {
+    $pluginList = $pluginListJsonText | ConvertFrom-Json
+    $availablePlugin = $pluginList.available | Where-Object { $_.name -eq $pluginName -and $_.marketplaceName -eq $marketplaceName } | Select-Object -First 1
+    $installedPlugin = $pluginList.installed | Where-Object { $_.name -eq $pluginName -and $_.marketplaceName -eq $marketplaceName } | Select-Object -First 1
+    if (-not $availablePlugin -and -not $installedPlugin) {
+        Add-Failure "Codex plugin is not available from $marketplaceName"
+    }
+    if (-not $installedPlugin) {
+        Add-Failure "Codex plugin is not installed: $pluginName@$marketplaceName"
     }
 }
 

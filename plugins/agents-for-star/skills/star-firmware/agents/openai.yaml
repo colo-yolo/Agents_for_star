@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-firmware'
+  short_description: 'Invoke Firmware Agent locally'
+  default_prompt: 'Use /star-firmware to review device firmware behavior.'
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-compliance'
+  short_description: 'Invoke Compliance Agent locally'
+  default_prompt: 'Use /star-compliance to review privacy and compliance risk.'
+policy:
+  allow_implicit_invocation: false

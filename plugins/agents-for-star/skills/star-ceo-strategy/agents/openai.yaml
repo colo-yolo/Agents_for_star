@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-ceo-strategy'
+  short_description: 'Invoke CEO Strategy Agent locally'
+  default_prompt: 'Use /star-ceo-strategy to review roadmap and resource tradeoffs.'
+policy:
+  allow_implicit_invocation: false

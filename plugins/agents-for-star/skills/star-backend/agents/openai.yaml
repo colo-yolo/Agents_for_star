@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-backend'
+  short_description: 'Invoke Backend Agent locally'
+  default_prompt: 'Use /star-backend to design Orchestrator and audit flow.'
+policy:
+  allow_implicit_invocation: false

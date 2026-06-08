@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-qa-reliability'
+  short_description: 'Invoke QA Reliability Agent locally'
+  default_prompt: 'Use /star-qa-reliability to build release gates and replay tests.'
+policy:
+  allow_implicit_invocation: false

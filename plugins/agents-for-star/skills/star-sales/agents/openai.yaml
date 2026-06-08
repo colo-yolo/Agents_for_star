@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-sales'
+  short_description: 'Invoke Sales Agent locally'
+  default_prompt: 'Use /star-sales to prepare demo or customer follow-up drafts.'
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,38 @@
+{
+    "name":  "agents-for-star",
+    "version":  "0.1.0",
+    "description":  "Local Codex plugin for dispatching Agents for Star Principal-level role workflows.",
+    "author":  {
+                   "name":  "Agents for Star"
+               },
+    "homepage":  "https://github.com/colo-yolo/Agents_for_star",
+    "repository":  "https://github.com/colo-yolo/Agents_for_star",
+    "license":  "MIT",
+    "keywords":  [
+                     "codex",
+                     "agents",
+                     "workflow",
+                     "principal-agent",
+                     "hardware",
+                     "orchestrator"
+                 ],
+    "skills":  "./skills/",
+    "interface":  {
+                      "displayName":  "Agents for Star",
+                      "shortDescription":  "Dispatch local Principal-level Agents for Star roles from Codex slash commands",
+                      "longDescription":  "Adds slash-discoverable skills for the Agents for Star local role system, including orchestrator dispatch plus CEO Strategy, Product, Hardware, Firmware, AI ML, Backend, UX, QA, Supply Chain, Compliance, Security, Finance, Marketing, Sales, Customer Success, and Knowledge Ops roles.",
+                      "developerName":  "Agents for Star",
+                      "category":  "Developer Tools",
+                      "capabilities":  [
+                                           "Interactive",
+                                           "Read",
+                                           "Write"
+                                       ],
+                      "defaultPrompt":  [
+                                            "Dispatch Agents for Star.",
+                                            "Run Principal Agent review.",
+                                            "Use Product Manager Agent."
+                                        ],
+                      "brandColor":  "#2563EB"
+                  }
+}

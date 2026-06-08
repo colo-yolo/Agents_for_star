@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-customer-success'
+  short_description: 'Invoke Customer Success Agent locally'
+  default_prompt: 'Use /star-customer-success to process pilot feedback.'
+policy:
+  allow_implicit_invocation: false

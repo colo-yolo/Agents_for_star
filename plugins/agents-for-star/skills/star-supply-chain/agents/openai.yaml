@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-supply-chain'
+  short_description: 'Invoke Supply Chain Agent locally'
+  default_prompt: 'Use /star-supply-chain to review BOM and procurement risk.'
+policy:
+  allow_implicit_invocation: false

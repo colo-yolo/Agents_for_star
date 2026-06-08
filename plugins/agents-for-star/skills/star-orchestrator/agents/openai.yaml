@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-orchestrator'
+  short_description: 'Dispatch any Agents for Star workflow'
+  default_prompt: 'Use /star-orchestrator to dispatch Agents for Star.'
+policy:
+  allow_implicit_invocation: false

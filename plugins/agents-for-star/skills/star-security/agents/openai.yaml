@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-security'
+  short_description: 'Invoke Security Agent locally'
+  default_prompt: 'Use /star-security to review threat model and permissions.'
+policy:
+  allow_implicit_invocation: false

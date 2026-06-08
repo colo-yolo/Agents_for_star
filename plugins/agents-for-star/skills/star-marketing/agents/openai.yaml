@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-marketing'
+  short_description: 'Invoke Marketing Agent locally'
+  default_prompt: 'Use /star-marketing to draft positioning with claim review.'
+policy:
+  allow_implicit_invocation: false

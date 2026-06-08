@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-knowledge-ops'
+  short_description: 'Invoke Knowledge Ops Agent locally'
+  default_prompt: 'Use /star-knowledge-ops to organize docs and next /goal.'
+policy:
+  allow_implicit_invocation: false

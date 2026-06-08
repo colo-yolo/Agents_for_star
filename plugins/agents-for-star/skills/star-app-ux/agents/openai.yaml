@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-app-ux'
+  short_description: 'Invoke App UX Agent locally'
+  default_prompt: 'Use /star-app-ux to design approval and device status flows.'
+policy:
+  allow_implicit_invocation: false

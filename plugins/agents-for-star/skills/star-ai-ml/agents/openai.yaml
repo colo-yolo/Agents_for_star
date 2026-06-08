@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-ai-ml'
+  short_description: 'Invoke AI ML Agent locally'
+  default_prompt: 'Use /star-ai-ml to evaluate model strategy and cost.'
+policy:
+  allow_implicit_invocation: false

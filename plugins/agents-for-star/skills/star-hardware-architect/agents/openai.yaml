@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-hardware-architect'
+  short_description: 'Invoke Hardware Architect Agent locally'
+  default_prompt: 'Use /star-hardware-architect for Principal hardware review.'
+policy:
+  allow_implicit_invocation: false

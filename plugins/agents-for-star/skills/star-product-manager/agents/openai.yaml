@@ -1,0 +1,6 @@
+interface:
+  display_name: '/star-product-manager'
+  short_description: 'Invoke Product Manager Agent locally'
+  default_prompt: 'Use /star-product-manager to refine PRD and MVP scope.'
+policy:
+  allow_implicit_invocation: false

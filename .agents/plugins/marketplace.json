@@ -1,0 +1,20 @@
+{
+    "name":  "agents-for-star-local",
+    "interface":  {
+                      "displayName":  "Agents for Star Local"
+                  },
+    "plugins":  [
+                    {
+                        "name":  "agents-for-star",
+                        "source":  {
+                                       "source":  "local",
+                                       "path":  "./plugins/agents-for-star"
+                                   },
+                        "policy":  {
+                                       "installation":  "AVAILABLE",
+                                       "authentication":  "ON_INSTALL"
+                                   },
+                        "category":  "Developer Tools"
+                    }
+                ]
+}
