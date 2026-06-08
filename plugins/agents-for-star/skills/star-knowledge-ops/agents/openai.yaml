@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-knowledge-ops'
-  short_description: 'Invoke Knowledge Ops Agent locally'
-  default_prompt: 'Use /star-knowledge-ops to organize docs and next /goal.'
+  display_name: '知识运营 Agent'
+  short_description: '文档结构、决策记录、审计日志、周报与下一步 /goal'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用知识运营 Agent 整理文档结构、决策记录、审计日志、周报和下一步 /goal。'
 policy:
   allow_implicit_invocation: false

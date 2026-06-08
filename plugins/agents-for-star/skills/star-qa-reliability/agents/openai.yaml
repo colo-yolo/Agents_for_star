@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-qa-reliability'
-  short_description: 'Invoke QA Reliability Agent locally'
-  default_prompt: 'Use /star-qa-reliability to build release gates and replay tests.'
+  display_name: 'QA 可靠性 Agent'
+  short_description: '测试计划、回归门禁、缺陷分类与 replay case'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用 QA 可靠性 Agent 制定测试计划、回归门禁、缺陷分类和 replay case。'
 policy:
   allow_implicit_invocation: false

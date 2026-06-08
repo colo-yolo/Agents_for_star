@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-marketing'
-  short_description: 'Invoke Marketing Agent locally'
-  default_prompt: 'Use /star-marketing to draft positioning with claim review.'
+  display_name: '市场 Agent'
+  short_description: '定位、内容、发布材料、外部 claim 与合规审查'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用市场 Agent 起草或复审定位、内容、发布材料和外部 claim。'
 policy:
   allow_implicit_invocation: false

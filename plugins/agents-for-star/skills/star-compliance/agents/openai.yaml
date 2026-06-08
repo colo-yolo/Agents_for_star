@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-compliance'
-  short_description: 'Invoke Compliance Agent locally'
-  default_prompt: 'Use /star-compliance to review privacy and compliance risk.'
+  display_name: '合规 Agent'
+  short_description: '隐私、认证、数据保留、外部 claim 与法规风险'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用合规 Agent 复审隐私、认证、数据保留、外部 claim 和法规风险。'
 policy:
   allow_implicit_invocation: false

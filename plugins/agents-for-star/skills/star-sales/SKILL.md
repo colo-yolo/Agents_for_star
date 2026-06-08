@@ -1,6 +1,6 @@
 ---
 name: star-sales
-description: 'Use when the user invokes /star-sales or needs Sales Agent for sales, ICP, leads, demo, pipeline, customer email, quote, pilot agreement.'
+description: 'Use when the user invokes /star-sales, 销售, ICP, 线索, demo, 客户邮件, 报价或试点协议。'
 ---
 
 # Sales Agent

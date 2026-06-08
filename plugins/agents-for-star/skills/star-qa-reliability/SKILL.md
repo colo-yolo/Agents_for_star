@@ -1,6 +1,6 @@
 ---
 name: star-qa-reliability
-description: 'Use when the user invokes /star-qa-reliability or needs QA Reliability Agent for QA, test plan, regression, release gate, defect taxonomy, reliability, replay cases.'
+description: 'Use when the user invokes /star-qa-reliability, QA, 测试计划, 回归, 发布门禁, 缺陷分类, 可靠性或 replay case。'
 ---
 
 # QA Reliability Agent

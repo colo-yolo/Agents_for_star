@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-ai-ml'
-  short_description: 'Invoke AI ML Agent locally'
-  default_prompt: 'Use /star-ai-ml to evaluate model strategy and cost.'
+  display_name: 'AI / 模型 Agent'
+  short_description: '模型策略、提示词、eval、质量与成本'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用 AI / 模型 Agent 评估模型策略、提示词、质量、成本和人工升级边界。'
 policy:
   allow_implicit_invocation: false

@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-app-ux'
-  short_description: 'Invoke App UX Agent locally'
-  default_prompt: 'Use /star-app-ux to design approval and device status flows.'
+  display_name: 'App / UX Agent'
+  short_description: '控制台、审批流、设备状态与风险文案'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用 App / UX Agent 设计控制台、审批流、设备状态和风险提示文案。'
 policy:
   allow_implicit_invocation: false

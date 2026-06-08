@@ -1,6 +1,6 @@
 ---
 name: star-hardware-architect
-description: 'Use when the user invokes /star-hardware-architect or needs Hardware Architect Agent for hardware architecture, BOM, PCB, sensors, power, thermal, EVT, bring-up, FMEA.'
+description: 'Use when the user invokes /star-hardware-architect, 硬件架构, BOM, PCB, 传感器, 功耗, 热设计, EVT, bring-up 或 FMEA。'
 ---
 
 # Hardware Architect Agent

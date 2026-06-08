@@ -1,6 +1,6 @@
 ---
 name: star-finance
-description: 'Use when the user invokes /star-finance or needs Finance Agent for finance, budget, cash flow, unit economics, payment approval, cost assumptions, runway.'
+description: 'Use when the user invokes /star-finance, 财务, 预算, 现金流, 单台经济性, 付款审批, 成本假设或 runway。'
 ---
 
 # Finance Agent

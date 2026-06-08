@@ -1,6 +1,6 @@
 {
     "name":  "agents-for-star",
-    "version":  "0.1.0",
+    "version":  "0.1.1",
     "description":  "Local Codex plugin for dispatching Agents for Star Principal-level role workflows.",
     "author":  {
                    "name":  "Agents for Star"
@@ -18,9 +18,9 @@
                  ],
     "skills":  "./skills/",
     "interface":  {
-                      "displayName":  "Agents for Star",
-                      "shortDescription":  "Dispatch local Principal-level Agents for Star roles from Codex slash commands",
-                      "longDescription":  "Adds slash-discoverable skills for the Agents for Star local role system, including orchestrator dispatch plus CEO Strategy, Product, Hardware, Firmware, AI ML, Backend, UX, QA, Supply Chain, Compliance, Security, Finance, Marketing, Sales, Customer Success, and Knowledge Ops roles.",
+                      "displayName":  "Agents for Star 本地调度",
+                      "shortDescription":  "用中文 slash 入口调度 OPC AI 硬件公司的 16 个 Principal Agent",
+                      "longDescription":  "把本仓库的 Agents for Star 角色系统接入本地 Codex。支持总调度、产品、硬件、固件、AI、后端、UX、QA、供应链、合规、安全、财务、市场、销售、客户成功和知识运营等 Principal Agent, 并保留创始人审批边界。",
                       "developerName":  "Agents for Star",
                       "category":  "Developer Tools",
                       "capabilities":  [
@@ -29,10 +29,15 @@
                                            "Write"
                                        ],
                       "defaultPrompt":  [
-                                            "Dispatch Agents for Star.",
-                                            "Run Principal Agent review.",
-                                            "Use Product Manager Agent."
+                                            "调度 Agents for Star 处理当前任务。",
+                                            "复审 Principal Agent 能力和审批边界。",
+                                            "让产品经理 Agent 梳理 PRD 和 MVP 范围。"
                                         ],
-                      "brandColor":  "#2563EB"
+                      "brandColor":  "#2563EB",
+                      "composerIcon":  "./assets/star-agent-small.svg",
+                      "logo":  "./assets/star-agent.svg",
+                      "screenshots":  [
+
+                                      ]
                   }
 }

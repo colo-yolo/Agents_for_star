@@ -1,6 +1,6 @@
 ---
 name: star-customer-success
-description: 'Use when the user invokes /star-customer-success or needs Customer Success Agent for customer success, pilot feedback, support draft, issue reproduction, value validation, customer risk.'
+description: 'Use when the user invokes /star-customer-success, 客户成功, 试点反馈, 支持草稿, 问题复现, 价值验证或客户风险。'
 ---
 
 # Customer Success Agent

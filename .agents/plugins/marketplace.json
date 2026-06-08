@@ -1,7 +1,7 @@
 {
     "name":  "agents-for-star-local",
     "interface":  {
-                      "displayName":  "Agents for Star Local"
+                      "displayName":  "Agents for Star 本地"
                   },
     "plugins":  [
                     {

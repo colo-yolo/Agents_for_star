@@ -1,6 +1,6 @@
 ---
 name: star-knowledge-ops
-description: 'Use when the user invokes /star-knowledge-ops or needs Knowledge Ops Agent for knowledge ops, docs, decision records, audit logs, weekly review, goal prompt, fact source cleanup.'
+description: 'Use when the user invokes /star-knowledge-ops, 知识运营, 文档结构, 决策记录, 审计日志, 周报, /goal 或事实源清理。'
 ---
 
 # Knowledge Ops Agent

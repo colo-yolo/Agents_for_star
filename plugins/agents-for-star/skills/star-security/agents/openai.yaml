@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-security'
-  short_description: 'Invoke Security Agent locally'
-  default_prompt: 'Use /star-security to review threat model and permissions.'
+  display_name: '安全 Agent'
+  short_description: '威胁模型、权限、密钥、最小权限与安全例外'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用安全 Agent 复审威胁模型、权限、密钥、最小权限和安全例外。'
 policy:
   allow_implicit_invocation: false

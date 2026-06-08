@@ -1,6 +1,6 @@
 ---
 name: star-ai-ml
-description: 'Use when the user invokes /star-ai-ml or needs AI ML Agent for model strategy, prompt, eval, model cost, AI output quality, human escalation, sensitive data.'
+description: 'Use when the user invokes /star-ai-ml, AI, 模型策略, 提示词, eval, 模型成本, 输出质量或敏感数据处理。'
 ---
 
 # AI ML Agent

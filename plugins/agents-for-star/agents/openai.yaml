@@ -1,0 +1,6 @@
+interface:
+  display_name: 'Agents for Star 本地调度'
+  short_description: '用中文 slash 入口调度 OPC AI 硬件公司的 16 个 Principal Agent'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '调度 Agents for Star 处理当前任务。'

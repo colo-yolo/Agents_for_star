@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-product-manager'
-  short_description: 'Invoke Product Manager Agent locally'
-  default_prompt: 'Use /star-product-manager to refine PRD and MVP scope.'
+  display_name: '产品经理 Agent'
+  short_description: 'PRD、用户研究、MVP 范围与验收标准'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用产品经理 Agent 梳理 PRD、用户研究、MVP 范围和验收标准。'
 policy:
   allow_implicit_invocation: false

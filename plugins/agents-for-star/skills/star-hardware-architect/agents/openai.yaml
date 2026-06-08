@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-hardware-architect'
-  short_description: 'Invoke Hardware Architect Agent locally'
-  default_prompt: 'Use /star-hardware-architect for Principal hardware review.'
+  display_name: '硬件架构 Agent'
+  short_description: '硬件架构、BOM、PCB、EVT 与 FMEA'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用硬件架构 Agent 复审硬件方案、BOM、PCB、EVT 风险和 FMEA。'
 policy:
   allow_implicit_invocation: false

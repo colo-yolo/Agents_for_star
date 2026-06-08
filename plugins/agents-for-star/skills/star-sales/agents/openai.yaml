@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-sales'
-  short_description: 'Invoke Sales Agent locally'
-  default_prompt: 'Use /star-sales to prepare demo or customer follow-up drafts.'
+  display_name: '销售 Agent'
+  short_description: 'ICP、线索、demo、客户跟进、报价与试点协议'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用销售 Agent 准备 ICP、demo、客户跟进、报价草案或试点协议草案。'
 policy:
   allow_implicit_invocation: false

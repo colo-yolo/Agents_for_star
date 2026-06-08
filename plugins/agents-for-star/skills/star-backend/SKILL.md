@@ -1,6 +1,6 @@
 ---
 name: star-backend
-description: 'Use when the user invokes /star-backend or needs Backend Agent for backend, Orchestrator, API, audit log, permissions, task routing, approval state.'
+description: 'Use when the user invokes /star-backend, 后端, Orchestrator, API, 审计日志, 权限, 任务路由或审批状态。'
 ---
 
 # Backend Agent

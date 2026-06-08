@@ -1,6 +1,6 @@
 ---
 name: star-security
-description: 'Use when the user invokes /star-security or needs Security Agent for security, threat model, permissions, secrets, least privilege, tool guardrails, security exception.'
+description: 'Use when the user invokes /star-security, 安全, 威胁模型, 权限, 密钥, 最小权限, 工具护栏或安全例外。'
 ---
 
 # Security Agent

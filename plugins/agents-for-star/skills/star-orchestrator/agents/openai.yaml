@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-orchestrator'
-  short_description: 'Dispatch any Agents for Star workflow'
-  default_prompt: 'Use /star-orchestrator to dispatch Agents for Star.'
+  display_name: '总调度 Orchestrator'
+  short_description: '选择 workflow, 协调主 Agent、审查 Agent 和审批边界'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用总调度 Orchestrator 为当前任务选择 workflow, 输出主 Agent、审查 Agent、风险等级和验证步骤。'
 policy:
   allow_implicit_invocation: false

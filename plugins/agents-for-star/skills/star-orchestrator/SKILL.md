@@ -1,6 +1,6 @@
 ---
 name: star-orchestrator
-description: 'Use when the user invokes /star-orchestrator or wants to dispatch, coordinate, review, or run any Agents for Star role workflow locally in Codex.'
+description: 'Use when the user invokes /star-orchestrator, 总调度, 调度 Agents for Star, 或需要选择 workflow 并协调多个本地 Principal Agent。'
 ---
 
 # Star Orchestrator

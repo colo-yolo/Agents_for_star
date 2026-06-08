@@ -1,6 +1,6 @@
 ---
 name: star-firmware
-description: 'Use when the user invokes /star-firmware or needs Firmware Agent for firmware, OTA, state machine, logs, low power, secure boot, device input protocol.'
+description: 'Use when the user invokes /star-firmware, 固件, OTA, 状态机, 设备日志, 低功耗, 安全启动或设备输入协议。'
 ---
 
 # Firmware Agent

@@ -1,0 +1,117 @@
+{
+  "plugin": {
+    "displayName": "Agents for Star 本地调度",
+    "shortDescription": "用中文 slash 入口调度 OPC AI 硬件公司的 16 个 Principal Agent",
+    "longDescription": "把本仓库的 Agents for Star 角色系统接入本地 Codex。支持总调度、产品、硬件、固件、AI、后端、UX、QA、供应链、合规、安全、财务、市场、销售、客户成功和知识运营等 Principal Agent, 并保留创始人审批边界。",
+    "marketplaceDisplayName": "Agents for Star 本地",
+    "defaultPrompts": [
+      "调度 Agents for Star 处理当前任务。",
+      "复审 Principal Agent 能力和审批边界。",
+      "让产品经理 Agent 梳理 PRD 和 MVP 范围。"
+    ]
+  },
+  "skills": {
+    "star-orchestrator": {
+      "displayName": "总调度 Orchestrator",
+      "shortDescription": "选择 workflow, 协调主 Agent、审查 Agent 和审批边界",
+      "defaultPrompt": "请用总调度 Orchestrator 为当前任务选择 workflow, 输出主 Agent、审查 Agent、风险等级和验证步骤。",
+      "skillDescription": "Use when the user invokes /star-orchestrator, 总调度, 调度 Agents for Star, 或需要选择 workflow 并协调多个本地 Principal Agent。"
+    },
+    "star-ceo-strategy": {
+      "displayName": "CEO 战略 Agent",
+      "shortDescription": "路线图、OKR、资源取舍、预算权衡",
+      "defaultPrompt": "请用 CEO 战略 Agent 复审路线图、资源取舍和预算权衡。",
+      "skillDescription": "Use when the user invokes /star-ceo-strategy, CEO 战略, 路线图, OKR, 资源取舍, 预算权衡或公司方向决策。"
+    },
+    "star-product-manager": {
+      "displayName": "产品经理 Agent",
+      "shortDescription": "PRD、用户研究、MVP 范围与验收标准",
+      "defaultPrompt": "请用产品经理 Agent 梳理 PRD、用户研究、MVP 范围和验收标准。",
+      "skillDescription": "Use when the user invokes /star-product-manager, 产品经理, PRD, 用户研究, MVP 范围, 需求排序或验收标准。"
+    },
+    "star-hardware-architect": {
+      "displayName": "硬件架构 Agent",
+      "shortDescription": "硬件架构、BOM、PCB、EVT 与 FMEA",
+      "defaultPrompt": "请用硬件架构 Agent 复审硬件方案、BOM、PCB、EVT 风险和 FMEA。",
+      "skillDescription": "Use when the user invokes /star-hardware-architect, 硬件架构, BOM, PCB, 传感器, 功耗, 热设计, EVT, bring-up 或 FMEA。"
+    },
+    "star-firmware": {
+      "displayName": "固件 Agent",
+      "shortDescription": "固件状态机、OTA、日志、低功耗与安全启动",
+      "defaultPrompt": "请用固件 Agent 复审设备固件状态机、OTA、日志和低功耗策略。",
+      "skillDescription": "Use when the user invokes /star-firmware, 固件, OTA, 状态机, 设备日志, 低功耗, 安全启动或设备输入协议。"
+    },
+    "star-ai-ml": {
+      "displayName": "AI / 模型 Agent",
+      "shortDescription": "模型策略、提示词、eval、质量与成本",
+      "defaultPrompt": "请用 AI / 模型 Agent 评估模型策略、提示词、质量、成本和人工升级边界。",
+      "skillDescription": "Use when the user invokes /star-ai-ml, AI, 模型策略, 提示词, eval, 模型成本, 输出质量或敏感数据处理。"
+    },
+    "star-backend": {
+      "displayName": "后端 / Orchestrator Agent",
+      "shortDescription": "Orchestrator、API、审计日志、权限与审批状态",
+      "defaultPrompt": "请用后端 Agent 设计或复审 Orchestrator、API、审计日志和权限模型。",
+      "skillDescription": "Use when the user invokes /star-backend, 后端, Orchestrator, API, 审计日志, 权限, 任务路由或审批状态。"
+    },
+    "star-app-ux": {
+      "displayName": "App / UX Agent",
+      "shortDescription": "控制台、审批流、设备状态与风险文案",
+      "defaultPrompt": "请用 App / UX Agent 设计控制台、审批流、设备状态和风险提示文案。",
+      "skillDescription": "Use when the user invokes /star-app-ux, UX, UI, 控制台, 审批界面, 设备状态, 风险文案或可用性。"
+    },
+    "star-qa-reliability": {
+      "displayName": "QA 可靠性 Agent",
+      "shortDescription": "测试计划、回归门禁、缺陷分类与 replay case",
+      "defaultPrompt": "请用 QA 可靠性 Agent 制定测试计划、回归门禁、缺陷分类和 replay case。",
+      "skillDescription": "Use when the user invokes /star-qa-reliability, QA, 测试计划, 回归, 发布门禁, 缺陷分类, 可靠性或 replay case。"
+    },
+    "star-supply-chain": {
+      "displayName": "供应链 Agent",
+      "shortDescription": "BOM、供应商、替代料、MOQ 与采购风险",
+      "defaultPrompt": "请用供应链 Agent 复审 BOM、供应商、替代料、MOQ 和采购风险。",
+      "skillDescription": "Use when the user invokes /star-supply-chain, 供应链, BOM, 供应商, 替代料, MOQ, 交期, 采购或下单审批。"
+    },
+    "star-compliance": {
+      "displayName": "合规 Agent",
+      "shortDescription": "隐私、认证、数据保留、外部 claim 与法规风险",
+      "defaultPrompt": "请用合规 Agent 复审隐私、认证、数据保留、外部 claim 和法规风险。",
+      "skillDescription": "Use when the user invokes /star-compliance, 合规, 隐私, 认证, 数据保留, 外部 claim 或法规风险。"
+    },
+    "star-security": {
+      "displayName": "安全 Agent",
+      "shortDescription": "威胁模型、权限、密钥、最小权限与安全例外",
+      "defaultPrompt": "请用安全 Agent 复审威胁模型、权限、密钥、最小权限和安全例外。",
+      "skillDescription": "Use when the user invokes /star-security, 安全, 威胁模型, 权限, 密钥, 最小权限, 工具护栏或安全例外。"
+    },
+    "star-finance": {
+      "displayName": "财务 Agent",
+      "shortDescription": "预算、现金流、单台经济性、成本假设与付款审批",
+      "defaultPrompt": "请用财务 Agent 复审预算、现金流、单台经济性、成本假设和付款审批。",
+      "skillDescription": "Use when the user invokes /star-finance, 财务, 预算, 现金流, 单台经济性, 付款审批, 成本假设或 runway。"
+    },
+    "star-marketing": {
+      "displayName": "市场 Agent",
+      "shortDescription": "定位、内容、发布材料、外部 claim 与合规审查",
+      "defaultPrompt": "请用市场 Agent 起草或复审定位、内容、发布材料和外部 claim。",
+      "skillDescription": "Use when the user invokes /star-marketing, 市场, 定位, 内容, 发布材料, 外部 claim 或公开信息。"
+    },
+    "star-sales": {
+      "displayName": "销售 Agent",
+      "shortDescription": "ICP、线索、demo、客户跟进、报价与试点协议",
+      "defaultPrompt": "请用销售 Agent 准备 ICP、demo、客户跟进、报价草案或试点协议草案。",
+      "skillDescription": "Use when the user invokes /star-sales, 销售, ICP, 线索, demo, 客户邮件, 报价或试点协议。"
+    },
+    "star-customer-success": {
+      "displayName": "客户成功 Agent",
+      "shortDescription": "试点反馈、支持草稿、问题复现、价值验证与客户风险",
+      "defaultPrompt": "请用客户成功 Agent 整理试点反馈、支持草稿、问题复现和价值验证。",
+      "skillDescription": "Use when the user invokes /star-customer-success, 客户成功, 试点反馈, 支持草稿, 问题复现, 价值验证或客户风险。"
+    },
+    "star-knowledge-ops": {
+      "displayName": "知识运营 Agent",
+      "shortDescription": "文档结构、决策记录、审计日志、周报与下一步 /goal",
+      "defaultPrompt": "请用知识运营 Agent 整理文档结构、决策记录、审计日志、周报和下一步 /goal。",
+      "skillDescription": "Use when the user invokes /star-knowledge-ops, 知识运营, 文档结构, 决策记录, 审计日志, 周报, /goal 或事实源清理。"
+    }
+  }
+}

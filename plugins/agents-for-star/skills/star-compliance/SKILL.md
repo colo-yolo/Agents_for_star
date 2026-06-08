@@ -1,6 +1,6 @@
 ---
 name: star-compliance
-description: 'Use when the user invokes /star-compliance or needs Compliance Agent for privacy, compliance, certification, data retention, external claims, legal review questions.'
+description: 'Use when the user invokes /star-compliance, 合规, 隐私, 认证, 数据保留, 外部 claim 或法规风险。'
 ---
 
 # Compliance Agent

@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-finance'
-  short_description: 'Invoke Finance Agent locally'
-  default_prompt: 'Use /star-finance to review budget and cash-flow impact.'
+  display_name: '财务 Agent'
+  short_description: '预算、现金流、单台经济性、成本假设与付款审批'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用财务 Agent 复审预算、现金流、单台经济性、成本假设和付款审批。'
 policy:
   allow_implicit_invocation: false

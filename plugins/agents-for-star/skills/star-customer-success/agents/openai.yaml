@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-customer-success'
-  short_description: 'Invoke Customer Success Agent locally'
-  default_prompt: 'Use /star-customer-success to process pilot feedback.'
+  display_name: '客户成功 Agent'
+  short_description: '试点反馈、支持草稿、问题复现、价值验证与客户风险'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用客户成功 Agent 整理试点反馈、支持草稿、问题复现和价值验证。'
 policy:
   allow_implicit_invocation: false

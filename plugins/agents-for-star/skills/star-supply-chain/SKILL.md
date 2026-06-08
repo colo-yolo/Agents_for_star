@@ -1,6 +1,6 @@
 ---
 name: star-supply-chain
-description: 'Use when the user invokes /star-supply-chain or needs Supply Chain Agent for BOM, supplier, alternate parts, MOQ, lead time, procurement, purchase approval.'
+description: 'Use when the user invokes /star-supply-chain, 供应链, BOM, 供应商, 替代料, MOQ, 交期, 采购或下单审批。'
 ---
 
 # Supply Chain Agent

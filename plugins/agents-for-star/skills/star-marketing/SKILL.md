@@ -1,6 +1,6 @@
 ---
 name: star-marketing
-description: 'Use when the user invokes /star-marketing or needs Marketing Agent for marketing, positioning, content, launch copy, claims review, public messaging.'
+description: 'Use when the user invokes /star-marketing, 市场, 定位, 内容, 发布材料, 外部 claim 或公开信息。'
 ---
 
 # Marketing Agent

@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-firmware'
-  short_description: 'Invoke Firmware Agent locally'
-  default_prompt: 'Use /star-firmware to review device firmware behavior.'
+  display_name: '固件 Agent'
+  short_description: '固件状态机、OTA、日志、低功耗与安全启动'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用固件 Agent 复审设备固件状态机、OTA、日志和低功耗策略。'
 policy:
   allow_implicit_invocation: false

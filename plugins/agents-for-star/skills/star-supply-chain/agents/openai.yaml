@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-supply-chain'
-  short_description: 'Invoke Supply Chain Agent locally'
-  default_prompt: 'Use /star-supply-chain to review BOM and procurement risk.'
+  display_name: '供应链 Agent'
+  short_description: 'BOM、供应商、替代料、MOQ 与采购风险'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用供应链 Agent 复审 BOM、供应商、替代料、MOQ 和采购风险。'
 policy:
   allow_implicit_invocation: false

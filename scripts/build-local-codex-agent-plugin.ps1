@@ -7,6 +7,7 @@ $pluginRoot = Join-Path $root "plugins/$pluginName"
 $skillsRoot = Join-Path $pluginRoot 'skills'
 $marketplacePath = Join-Path $root '.agents/plugins/marketplace.json'
 $repoPath = $root
+$uiMetadataPath = Join-Path $root 'docs/agents/local-codex-slash-ui.zh-CN.json'
 
 function Write-Utf8File {
     param(
@@ -61,6 +62,7 @@ function New-StarSkill {
         [Parameter(Mandatory = $true)][string]$SkillName,
         [Parameter(Mandatory = $true)][string]$Title,
         [Parameter(Mandatory = $true)][string]$Description,
+        [Parameter(Mandatory = $true)][string]$DisplayName,
         [Parameter(Mandatory = $true)][string]$ShortDescription,
         [Parameter(Mandatory = $true)][string]$DefaultPrompt,
         [Parameter(Mandatory = $true)][string]$Body
@@ -80,8 +82,10 @@ function New-StarSkill {
 
     $agentYaml = @(
         'interface:',
-        ('  display_name: ' + (ConvertTo-YamlSingleQuoted "/$SkillName")),
+        ('  display_name: ' + (ConvertTo-YamlSingleQuoted $DisplayName)),
         ('  short_description: ' + (ConvertTo-YamlSingleQuoted $ShortDescription)),
+        '  icon_small: ./assets/star-agent-small.svg',
+        '  icon_large: ./assets/star-agent.svg',
         ('  default_prompt: ' + (ConvertTo-YamlSingleQuoted $DefaultPrompt)),
         'policy:',
         '  allow_implicit_invocation: false'
@@ -89,13 +93,43 @@ function New-StarSkill {
 
     Write-Utf8File -Path (Join-Path $skillDir 'SKILL.md') -Content ($skillContent + "`n")
     Write-Utf8File -Path (Join-Path $skillDir 'agents/openai.yaml') -Content ($agentYaml + "`n")
+    Write-Utf8File -Path (Join-Path $skillDir 'assets/star-agent-small.svg') -Content $smallIconSvg
+    Write-Utf8File -Path (Join-Path $skillDir 'assets/star-agent.svg') -Content $largeIconSvg
 }
+
+if (-not (Test-Path -LiteralPath $uiMetadataPath)) {
+    throw "Missing local Codex slash UI metadata: $uiMetadataPath"
+}
+
+$uiMetadata = Get-Content -LiteralPath $uiMetadataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$largeIconSvg = @(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">',
+    '  <defs>',
+    '    <linearGradient id="g" x1="96" y1="80" x2="420" y2="432" gradientUnits="userSpaceOnUse">',
+    '      <stop stop-color="#2563EB"/>',
+    '      <stop offset="0.55" stop-color="#14B8A6"/>',
+    '      <stop offset="1" stop-color="#F59E0B"/>',
+    '    </linearGradient>',
+    '  </defs>',
+    '  <rect width="512" height="512" rx="96" fill="#0F172A"/>',
+    '  <path d="M256 74l38 116 122 1-98 71 37 117-99-72-99 72 37-117-98-71 122-1 38-116z" fill="url(#g)"/>',
+    '  <circle cx="256" cy="256" r="64" fill="#F8FAFC"/>',
+    '  <path d="M220 258h112M256 202v112" stroke="#0F172A" stroke-width="26" stroke-linecap="round"/>',
+    '</svg>'
+) -join "`n"
+$smallIconSvg = @(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">',
+    '  <rect width="64" height="64" rx="14" fill="#0F172A"/>',
+    '  <path d="M32 8l6.8 20.8h21.9L42.9 41.6l6.8 20.8L32 49.6 14.3 62.4l6.8-20.8L3.3 28.8h21.9L32 8z" fill="#38BDF8"/>',
+    '  <circle cx="32" cy="34" r="8" fill="#F8FAFC"/>',
+    '</svg>'
+) -join "`n"
 
 Remove-GeneratedPluginRoot
 
 $pluginJson = [ordered]@{
     name = $pluginName
-    version = '0.1.0'
+    version = '0.1.1'
     description = 'Local Codex plugin for dispatching Agents for Star Principal-level role workflows.'
     author = [ordered]@{
         name = 'Agents for Star'
@@ -113,25 +147,24 @@ $pluginJson = [ordered]@{
     )
     skills = './skills/'
     interface = [ordered]@{
-        displayName = 'Agents for Star'
-        shortDescription = 'Dispatch local Principal-level Agents for Star roles from Codex slash commands'
-        longDescription = 'Adds slash-discoverable skills for the Agents for Star local role system, including orchestrator dispatch plus CEO Strategy, Product, Hardware, Firmware, AI ML, Backend, UX, QA, Supply Chain, Compliance, Security, Finance, Marketing, Sales, Customer Success, and Knowledge Ops roles.'
+        displayName = $uiMetadata.plugin.displayName
+        shortDescription = $uiMetadata.plugin.shortDescription
+        longDescription = $uiMetadata.plugin.longDescription
         developerName = 'Agents for Star'
         category = 'Developer Tools'
         capabilities = @('Interactive', 'Read', 'Write')
-        defaultPrompt = @(
-            'Dispatch Agents for Star.',
-            'Run Principal Agent review.',
-            'Use Product Manager Agent.'
-        )
+        defaultPrompt = @($uiMetadata.plugin.defaultPrompts)
         brandColor = '#2563EB'
+        composerIcon = './assets/star-agent-small.svg'
+        logo = './assets/star-agent.svg'
+        screenshots = @()
     }
 }
 
 $marketplace = [ordered]@{
     name = $marketplaceName
     interface = [ordered]@{
-        displayName = 'Agents for Star Local'
+        displayName = $uiMetadata.plugin.marketplaceDisplayName
     }
     plugins = @(
         [ordered]@{
@@ -151,6 +184,16 @@ $marketplace = [ordered]@{
 
 ConvertTo-JsonFile -Path (Join-Path $pluginRoot '.codex-plugin/plugin.json') -Value $pluginJson
 ConvertTo-JsonFile -Path $marketplacePath -Value $marketplace
+Write-Utf8File -Path (Join-Path $pluginRoot 'assets/star-agent-small.svg') -Content $smallIconSvg
+Write-Utf8File -Path (Join-Path $pluginRoot 'assets/star-agent.svg') -Content $largeIconSvg
+Write-Utf8File -Path (Join-Path $pluginRoot 'agents/openai.yaml') -Content ((@(
+    'interface:',
+    ('  display_name: ' + (ConvertTo-YamlSingleQuoted $uiMetadata.plugin.displayName)),
+    ('  short_description: ' + (ConvertTo-YamlSingleQuoted $uiMetadata.plugin.shortDescription)),
+    '  icon_small: ./assets/star-agent-small.svg',
+    '  icon_large: ./assets/star-agent.svg',
+    ('  default_prompt: ' + (ConvertTo-YamlSingleQuoted $uiMetadata.plugin.defaultPrompts[0]))
+) -join "`n") + "`n")
 
 $commonPreamble = @(
     '## Operating Contract',
@@ -207,9 +250,10 @@ $orchestratorBody = @(
 New-StarSkill `
     -SkillName 'star-orchestrator' `
     -Title 'Star Orchestrator' `
-    -Description 'Use when the user invokes /star-orchestrator or wants to dispatch, coordinate, review, or run any Agents for Star role workflow locally in Codex.' `
-    -ShortDescription 'Dispatch any Agents for Star workflow' `
-    -DefaultPrompt 'Use /star-orchestrator to dispatch Agents for Star.' `
+    -Description $uiMetadata.skills.'star-orchestrator'.skillDescription `
+    -DisplayName $uiMetadata.skills.'star-orchestrator'.displayName `
+    -ShortDescription $uiMetadata.skills.'star-orchestrator'.shortDescription `
+    -DefaultPrompt $uiMetadata.skills.'star-orchestrator'.defaultPrompt `
     -Body $orchestratorBody
 
 $roles = @(
@@ -232,6 +276,11 @@ $roles = @(
 )
 
 foreach ($role in $roles) {
+    $roleUi = $uiMetadata.skills.($role.Skill)
+    if ($null -eq $roleUi) {
+        throw "Missing UI metadata for skill: $($role.Skill)"
+    }
+
     $body = @(
         $commonPreamble,
         '',
@@ -259,9 +308,10 @@ foreach ($role in $roles) {
     New-StarSkill `
         -SkillName $role.Skill `
         -Title $role.Title `
-        -Description "Use when the user invokes /$($role.Skill) or needs $($role.Role) for $($role.Triggers)." `
-        -ShortDescription "Invoke $($role.Role) locally" `
-        -DefaultPrompt $role.Prompt `
+        -Description $roleUi.skillDescription `
+        -DisplayName $roleUi.displayName `
+        -ShortDescription $roleUi.shortDescription `
+        -DefaultPrompt $roleUi.defaultPrompt `
         -Body $body
 }
 

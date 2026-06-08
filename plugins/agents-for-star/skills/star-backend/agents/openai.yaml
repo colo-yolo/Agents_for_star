@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-backend'
-  short_description: 'Invoke Backend Agent locally'
-  default_prompt: 'Use /star-backend to design Orchestrator and audit flow.'
+  display_name: '后端 / Orchestrator Agent'
+  short_description: 'Orchestrator、API、审计日志、权限与审批状态'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用后端 Agent 设计或复审 Orchestrator、API、审计日志和权限模型。'
 policy:
   allow_implicit_invocation: false

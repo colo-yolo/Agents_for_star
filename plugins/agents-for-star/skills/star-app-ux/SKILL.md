@@ -1,6 +1,6 @@
 ---
 name: star-app-ux
-description: 'Use when the user invokes /star-app-ux or needs App UX Agent for UX, UI flow, approval interface, device status, risk copy, usability, customer-visible text.'
+description: 'Use when the user invokes /star-app-ux, UX, UI, 控制台, 审批界面, 设备状态, 风险文案或可用性。'
 ---
 
 # App UX Agent

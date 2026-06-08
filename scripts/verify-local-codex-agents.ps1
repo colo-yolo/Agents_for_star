@@ -7,6 +7,7 @@ $pluginName = 'agents-for-star'
 $marketplaceName = 'agents-for-star-local'
 $pluginRoot = Join-Path $root "plugins/$pluginName"
 $marketplacePath = Join-Path $root '.agents/plugins/marketplace.json'
+$uiMetadataPath = Join-Path $root 'docs/agents/local-codex-slash-ui.zh-CN.json'
 $failures = New-Object System.Collections.Generic.List[string]
 
 function Add-Failure {
@@ -65,8 +66,12 @@ $requiredRepoFiles = @(
     'scripts/run-evals.ps1',
     'scripts/validate-agent-capabilities.ps1',
     'docs/agents/principal-agent-capability-standard.md',
+    'docs/agents/local-codex-slash-ui.zh-CN.json',
     'scripts/build-local-codex-agent-plugin.ps1',
     'plugins/agents-for-star/.codex-plugin/plugin.json',
+    'plugins/agents-for-star/agents/openai.yaml',
+    'plugins/agents-for-star/assets/star-agent.svg',
+    'plugins/agents-for-star/assets/star-agent-small.svg',
     '.agents/plugins/marketplace.json'
 )
 
@@ -106,6 +111,27 @@ if (Test-Path -LiteralPath (Join-Path $pluginRoot '.codex-plugin/plugin.json')) 
     }
 }
 
+$uiMetadata = $null
+if (Test-Path -LiteralPath $uiMetadataPath) {
+    $uiMetadata = Get-Content -LiteralPath $uiMetadataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+}
+
+if (($null -ne $uiMetadata) -and (Test-Path -LiteralPath (Join-Path $pluginRoot '.codex-plugin/plugin.json'))) {
+    $pluginJson = Get-Content -LiteralPath (Join-Path $pluginRoot '.codex-plugin/plugin.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($pluginJson.interface.displayName -ne $uiMetadata.plugin.displayName) {
+        Add-Failure "plugin displayName does not match Chinese UI metadata"
+    }
+    if ($pluginJson.interface.shortDescription -ne $uiMetadata.plugin.shortDescription) {
+        Add-Failure "plugin shortDescription does not match Chinese UI metadata"
+    }
+    if ($pluginJson.interface.composerIcon -ne './assets/star-agent-small.svg') {
+        Add-Failure "plugin composerIcon does not point at star-agent-small.svg"
+    }
+    if ($pluginJson.interface.logo -ne './assets/star-agent.svg') {
+        Add-Failure "plugin logo does not point at star-agent.svg"
+    }
+}
+
 if (Test-Path -LiteralPath $marketplacePath) {
     $marketplaceJson = Get-Content -LiteralPath $marketplacePath -Raw -Encoding UTF8 | ConvertFrom-Json
     if ($marketplaceJson.name -ne $marketplaceName) {
@@ -122,6 +148,8 @@ if (Test-Path -LiteralPath $marketplacePath) {
 foreach ($skill in $expectedSlashSkills) {
     $skillFile = Join-Path $pluginRoot "skills/$skill/SKILL.md"
     $agentFile = Join-Path $pluginRoot "skills/$skill/agents/openai.yaml"
+    $smallIconFile = Join-Path $pluginRoot "skills/$skill/assets/star-agent-small.svg"
+    $largeIconFile = Join-Path $pluginRoot "skills/$skill/assets/star-agent.svg"
     if (-not (Test-Path -LiteralPath $skillFile)) {
         Add-Failure "missing slash skill file: $skillFile"
         continue
@@ -129,12 +157,38 @@ foreach ($skill in $expectedSlashSkills) {
     if (-not (Test-Path -LiteralPath $agentFile)) {
         Add-Failure "missing slash skill agent metadata: $agentFile"
     }
+    if (-not (Test-Path -LiteralPath $smallIconFile)) {
+        Add-Failure "missing slash skill small icon: $smallIconFile"
+    }
+    if (-not (Test-Path -LiteralPath $largeIconFile)) {
+        Add-Failure "missing slash skill large icon: $largeIconFile"
+    }
     $content = Get-Content -LiteralPath $skillFile -Raw -Encoding UTF8
     if ($content -notmatch "(?m)^name:\s*$([regex]::Escape($skill))\s*$") {
         Add-Failure "slash skill has wrong frontmatter name: $skill"
     }
     if ($content -notmatch 'principal-agent-capability-standard.md') {
         Add-Failure "slash skill does not reference Principal capability standard: $skill"
+    }
+    if ((Test-Path -LiteralPath $agentFile) -and ($null -ne $uiMetadata)) {
+        $agentYaml = Get-Content -LiteralPath $agentFile -Raw -Encoding UTF8
+        $skillUi = $uiMetadata.skills.$skill
+        if ($null -eq $skillUi) {
+            Add-Failure "missing Chinese UI metadata for slash skill: $skill"
+        } else {
+            if ($agentYaml -notmatch [regex]::Escape($skillUi.displayName)) {
+                Add-Failure "slash skill agent metadata missing Chinese display name: $skill"
+            }
+            if ($agentYaml -notmatch [regex]::Escape($skillUi.shortDescription)) {
+                Add-Failure "slash skill agent metadata missing Chinese short description: $skill"
+            }
+        }
+        if ($agentYaml -notmatch 'icon_small:\s+\./assets/star-agent-small\.svg') {
+            Add-Failure "slash skill agent metadata missing icon_small: $skill"
+        }
+        if ($agentYaml -notmatch 'icon_large:\s+\./assets/star-agent\.svg') {
+            Add-Failure "slash skill agent metadata missing icon_large: $skill"
+        }
     }
 }
 

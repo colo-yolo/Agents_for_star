@@ -1,6 +1,8 @@
 interface:
-  display_name: '/star-ceo-strategy'
-  short_description: 'Invoke CEO Strategy Agent locally'
-  default_prompt: 'Use /star-ceo-strategy to review roadmap and resource tradeoffs.'
+  display_name: 'CEO 战略 Agent'
+  short_description: '路线图、OKR、资源取舍、预算权衡'
+  icon_small: ./assets/star-agent-small.svg
+  icon_large: ./assets/star-agent.svg
+  default_prompt: '请用 CEO 战略 Agent 复审路线图、资源取舍和预算权衡。'
 policy:
   allow_implicit_invocation: false

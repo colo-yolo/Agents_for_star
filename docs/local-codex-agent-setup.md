@@ -13,7 +13,14 @@
 
 ## Slash 指令
 
-安装插件后, 在新的 Codex 会话中输入 `/` 并搜索以下入口:
+安装插件后, 在新的 Codex 会话中输入 `/`, 可以用中文关键词或英文 slug 搜索入口。为了保持 Codex slash 命令稳定, 实际命令名仍使用 `/star-*`, 但菜单显示名、说明和默认提示已中文化。
+
+推荐调度方式:
+
+1. 输入 `/`。
+2. 搜索 `产品`、`安全`、`硬件`、`财务`、`总调度` 等中文关键词。
+3. 选择对应 Agent。
+4. 在同一条消息里写清目标、事实源、期望交付物和风险边界。
 
 | Slash 指令 | 默认主 Agent | 典型用途 |
 |---|---|---|
@@ -35,6 +42,23 @@
 | `/star-customer-success` | Customer Success Agent | 试点反馈、支持草稿、问题复现、价值验证 |
 | `/star-knowledge-ops` | Knowledge Ops Agent | 文档结构、决策记录、周报、下一步 `/goal` |
 
+菜单中的中文显示名示例:
+
+| 搜索词 | 菜单显示 | 实际命令 |
+|---|---|---|
+| `总调度` | 总调度 Orchestrator | `/star-orchestrator` |
+| `产品` | 产品经理 Agent | `/star-product-manager` |
+| `硬件` | 硬件架构 Agent | `/star-hardware-architect` |
+| `安全` | 安全 Agent | `/star-security` |
+| `合规` | 合规 Agent | `/star-compliance` |
+| `财务` | 财务 Agent | `/star-finance` |
+| `知识` | 知识运营 Agent | `/star-knowledge-ops` |
+
+插件卡片和每个 slash 入口都配置了本地图标资源:
+
+- `plugins/agents-for-star/assets/star-agent.svg`
+- `plugins/agents-for-star/assets/star-agent-small.svg`
+
 ## 安装命令
 
 在仓库根目录运行:
@@ -46,9 +70,10 @@ powershell -ExecutionPolicy Bypass -File scripts\install-local-codex-agents.ps1
 该脚本会执行四件事:
 
 1. 生成 `plugins/agents-for-star` 和 `.agents/plugins/marketplace.json`。
-2. 校验插件 manifest。
+2. 读取 `docs/agents/local-codex-slash-ui.zh-CN.json` 生成中文菜单文案和默认提示。
 3. 把 `codex-skills/agents-for-star-orchestrator` 复制到 `C:\Users\ASUS\.codex\skills\agents-for-star-orchestrator`。
-4. 执行 `codex plugin marketplace add .` 和 `codex plugin add agents-for-star@agents-for-star-local`。
+4. 校验插件 manifest。
+5. 执行 `codex plugin marketplace add .` 和 `codex plugin add agents-for-star@agents-for-star-local`。
 
 ## 使用方式
 
@@ -80,6 +105,20 @@ powershell -ExecutionPolicy Bypass -File scripts\install-local-codex-agents.ps1
 ```text
 /star-security
 请复审 Orchestrator 的权限模型和审计日志, 涉及安全例外时只输出创始人审批包。
+```
+
+如果你想让系统自动选角色, 使用总调度:
+
+```text
+/star-orchestrator
+请基于 docs/product/prd-v1.md 和 docs/phase-1-poc/architecture.md, 判断当前 POC 下一步最该推进什么, 输出主 Agent、审查 Agent、风险等级、交付物和停止条件。
+```
+
+如果你已经知道要哪个角色, 直接选该角色:
+
+```text
+/star-hardware-architect
+请复审 docs/hardware/bom-template.md 和 docs/hardware/hardware-fmea-template.md, 找出 EVT 前必须补齐的硬件风险项。涉及量产承诺时只输出创始人审批包。
 ```
 
 ## 触发后的执行规则
@@ -114,7 +153,7 @@ codex plugin list --available --json
 
 - `codex plugin marketplace list` 包含 `agents-for-star-local`。
 - `codex plugin list --available --json` 的 `installed` 中包含 `agents-for-star@agents-for-star-local`。
-- 新的 Codex 会话里 `/` 菜单可以搜索 `star-orchestrator`、`star-product-manager`、`star-security` 等入口。
+- 新的 Codex 会话里 `/` 菜单可以搜索 `总调度`、`产品`、`安全`、`star-orchestrator`、`star-product-manager`、`star-security` 等入口。
 
 ## 限制
 

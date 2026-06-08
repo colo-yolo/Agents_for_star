@@ -1,6 +1,6 @@
 ---
 name: star-product-manager
-description: 'Use when the user invokes /star-product-manager or needs Product Manager Agent for PRD, product requirements, user research, MVP scope, acceptance criteria, main scenario decisions.'
+description: 'Use when the user invokes /star-product-manager, 产品经理, PRD, 用户研究, MVP 范围, 需求排序或验收标准。'
 ---
 
 # Product Manager Agent

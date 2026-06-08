@@ -1,6 +1,6 @@
 ---
 name: star-ceo-strategy
-description: 'Use when the user invokes /star-ceo-strategy or needs CEO Strategy Agent for strategy, roadmap, OKR, resource allocation, founder decisions, budget tradeoffs, company direction.'
+description: 'Use when the user invokes /star-ceo-strategy, CEO 战略, 路线图, OKR, 资源取舍, 预算权衡或公司方向决策。'
 ---
 
 # CEO Strategy Agent
